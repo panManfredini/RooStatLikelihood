@@ -1,4 +1,3 @@
-//stocazzo
 #include "TFile.h"
 #include "TROOT.h"
 #include "TCanvas.h"
