@@ -32,66 +32,137 @@ void test_counting_experiment() {
 //////////////////////   MODEL BUILDING    /////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 /*
-int nobs = 3;   // number of observed events
-double b0 = 1; // number of background events
-double sigmab = 0.2;   // relative uncertainty in b
+N_s = N_tot_theory(Mass,Xsec) * Acceptance_SR * Eff_AmBe_bin_i * mu
+N_b = N_Co_SR_bin_i * Norm_factor
+
+Xesec: considered 10^-40 cm^2
+Norm_factor = N_Data_CR / N_Co_CR   --> assuming no difference between Co and Data in CR and SR.
+N_tot_theory(Mass,Xsec): for 225 livedays, 45kg and considering Xsec. It is a constant, no uncertainty at the moment.
+
+---Costraint Signal
+   nuissance parameter = Acceptance_SR, Eff_AmBe_bin_i
+   Gauss(Acceptance_SR_obs | Acceptance_SR, err.)
+   Poisson(S0_i | S_tot_SR  * Eff_AmBe_bin_i)
+   
+---Costraint Bkg
+   nuissance parameter = N_Co_SR_bin_i, Norm_factor
+   Gauss(Norm_factor_obs |  Norm_factor, err)
+   Poisson(B0_i | N_Co_SR_bin_i)
+
 */
 
 RooWorkspace w("w");
 
-w.factory("prod:s(eff[1,0,50], Xsec[100.], K_m[20], mu[1,0,200])");
-w.factory("sum:nexp(s, b[50,0,200])");
+// Variable definition
+   w.factory("prod:N_s_i(N_tot_theory[5], Acceptance_SR[0.9,0.0,1], Eff_AmBe_bin_i[0.5,0.0,1], mu[1.,0.,200])");
+   w.factory("prod:N_b_i(N_Co_SR_bin_i[100.0,0.0,1000.0], Bkg_norm_factor[0.7, 0.0,10.0])"); 
+   w.factory("sum:nexp_i(N_s_i, N_b_i)");
+
 // Poisson of (n | s+b)
-w.factory("Poisson:pdf(nobs[0,200],nexp)");
-// Poisson constraint to express uncertainty in b
-w.factory("Poisson:constraint_B(b0[50,0,200],b)");  // Likelihood for nuissance parameter b
-w.factory("prod:N_S(S_tot[50], eff)");
-w.factory("Poisson:constraint_S(S0[50,0,200], N_S)");  // Likelihood for nuissance parameter b
+   w.factory("Poisson:pdf_i(nobs_i[0.0,1000.0],nexp_i)");
+
+// Poisson constraint --- Stat uncertainty on the bin content
+   w.factory("prod:S_i_exp(S_tot[1000.0], Eff_AmBe_bin_i)");   // put 1000. to right AmBe amount
+   w.factory("Poisson:AmBe_bin_i(S_i[500,0.0,50000.0],S_i_exp)");  // change 50 for multiple bin, put 1000. to right AmBe amount
+   w.factory("Poisson:Co_SR_bin_i(B_i[0.0,1000.0], N_Co_SR_bin_i)");  //change 100 for multiple bin, put 1000. to right Co tot amount in SR
+
+// Constraint of GLOBAL nuissance parameter
+   w.factory("Gaussian:costraint_bkg_norm(Bkg_norm_factor_obs[0,10], Bkg_norm_factor, err_Norm_factor[1])"); // approximation (should be kind of complicated cauchy....)
+   w.factory("Gaussian:costarint_sig_acc(Acceptance_SR_obs[0,1], Acceptance_SR, err_Acceptance_SR[0.01])");// this has the problem of boundaries acceptance cannot be larger than 1.  --->Lognormal???
+
 // the total model p.d.f will be the product of the two
-//w.factory("Uniform::prior_b(b)"); // define the prior for b
-//w.factory("Uniform::prior_s(s)"); // define the prior for b
+   //w.factory("Uniform::prior_b(b)"); // define the prior for b
+   //w.factory("Uniform::prior_s(s)"); // define the prior for b
+   w.factory("PROD:model(pdf_i,AmBe_bin_i,Co_SR_bin_i, costraint_bkg_norm, costarint_sig_acc)");
 
-w.factory("PROD:model(pdf,constraint_S,constraint_B)");
+// Set input variables -- Global OBSERVABLESerr_Norm_factor
+   w.var("S_tot")->setVal(1000); 		// Total events of AmBe in SR 
+   w.var("S_i")->setMax(w.var("S_tot")->getValV());  // the range of the poisson needs to be defined
+   w.var("S_i")->setVal(500); 	  		//  Events in bin i for AmBe
+   w.var("N_tot_theory")->setVal(10); 		// Total expected Signal events
+
+   w.var("B_i")->setMax(10000);  // set to TOT Co in SR
+   w.var("B_i")->setVal(100);    // Set observed event in SR Co
+   w.var("Bkg_norm_factor_obs")->setVal(0.5); // Ratio between data in CR and Co in CR
+   w.var("err_Norm_factor")->setVal(0.05); 		/// Set error on norm factor
+   w.var("Acceptance_SR_obs")->setVal(0.9); 
+   w.var("err_Acceptance_SR")->setVal(0.01);
+ 
+   w.var("S_i")->setConstant(true); 
+   w.var("B_i")->setConstant(true); 
+   w.var("N_tot_theory")->setConstant(true); 
+   w.var("S_tot")->setConstant(true); 
+   w.var("Bkg_norm_factor_obs")->setConstant(true); 
+   w.var("err_Norm_factor")->setConstant(true); 
+   w.var("Acceptance_SR_obs")->setConstant(true); 
+   w.var("err_Acceptance_SR")->setConstant(true); 
+
+// Set input Observables
+  w.var("nobs_i")->setVal(55);
+
+// Set range and value for nuissance parameters
+   w.var("N_Co_SR_bin_i")->setMax(w.var("B_i")->getValV() + sqrt(w.var("B_i")->getValV())*10.); //set to 10 sigma.
+   w.var("N_Co_SR_bin_i")->setVal(w.var("B_i")->getValV());  // set to observed value!!
+   w.var("Eff_AmBe_bin_i")->setVal(w.var("S_i")->getValV() / w.var("S_tot")->getValV() ); // Set to observed value!!!
+   w.var("Acceptance_SR")->setVal(w.var("Acceptance_SR_obs")->getValV());// Set to observed value!!!
+   w.var("Bkg_norm_factor")->setMax(w.var("Bkg_norm_factor_obs")->getValV() + w.var("err_Norm_factor")->getValV()*10.); //set to 10 sigma.
+   w.var("Bkg_norm_factor")->setVal(w.var("Bkg_norm_factor_obs")->getValV());// Set to observed value!!!
+   
 
 
-w.var("b0")->setConstant(true); 
-w.var("S_tot")->setConstant(true); 
-w.var("S0")->setConstant(true); 
-w.var("Xsec")->setConstant(true); 
-w.var("K_m")->setConstant(true); 
+// Building the model
+   ModelConfig mc("ModelConfig",&w);
+   mc.SetPdf(*w.pdf("model"));
+   mc.SetParametersOfInterest(*w.var("mu"));
+   //mc.SetPriorPdf(*w.pdf("prior_s"));
 
-ModelConfig mc("ModelConfig",&w);
-mc.SetPdf(*w.pdf("model"));
-mc.SetParametersOfInterest(*w.var("mu"));
-mc.SetObservables(*w.var("nobs"));
-
-//mc.SetPriorPdf(*w.pdf("prior_s"));
-mc.SetNuisanceParameters(*w.var("b,eff"));
+// Setting nuissance parameter
+   RooArgSet nuissanceParameter (*w.var("Bkg_norm_factor"),*w.var("Acceptance_SR"));
+   nuissanceParameter.add(*w.var("N_Co_SR_bin_i"));
+   nuissanceParameter.add(*w.var("Eff_AmBe_bin_i"));
+   mc.SetNuisanceParameters(nuissanceParameter);
 
 // need now to set the global observable
-mc.SetGlobalObservables(*w.var("b0"));
+   RooArgSet g_obs(*w.var("S_i"), *w.var("B_i"));
+//   g_obs.add(*w.var("N_tot_theory"));
+//   g_obs.add(*w.var("S_tot"));
+   g_obs.add(*w.var("Bkg_norm_factor_obs"));
+//   g_obs.add(*w.var("err_Norm_factor"));
+   g_obs.add(*w.var("Acceptance_SR_obs"));
+//   g_obs.add(*w.var("err_Acceptance_SR"));
+   mc.SetGlobalObservables(g_obs);
+
+   RooArgSet observables(*w.var("nobs_i"));
+   //observables.add(variousbins...);
+   mc.SetObservables(observables);
+
 
 // this is needed for the hypothesis tests
-mc.SetSnapshot(*w.var("mu"));
+   mc.SetSnapshot(*w.var("mu"));
 
-// import model in the workspace 
-w.import(mc);
 
 // make data set with the number of observed events
-RooDataSet data("data","", *w.var("nobs"));
-w.var("nobs")->setVal(55);
-data.add(*w.var("nobs") );
+RooDataSet data("data","", observables);
+data.add(observables);
 
 // import data set in workspace and save it in a file
-w.import(data);
-w.writeToFile("CountingModel.root", true);
+   w.import(data);
+
+// import model in the workspace 
+   w.import(mc);
+
+   w.writeToFile("CountingModel.root", true);
+
+
+
 
 w.Print();
 
 data.Print();
 
-
-/*///////////////////////////////////////////////////////////////////////
+ 
+cout << w.var("S_i")->getValV() << endl;//<< "   "   <<  w.var("S_i_exp")->getValV() << endl;
+///////////////////////////////////////////////////////////////////////
 ProfileLikelihoodCalculator pl(data,mc);
   pl.SetConfidenceLevel(0.95);
   LikelihoodInterval* interval = pl.GetInterval();
@@ -114,59 +185,9 @@ ProfileLikelihoodCalculator pl(data,mc);
   plot->Draw("");  // use option TF1 if too slow (plot.Draw("tf1")
 
 
-*/
-///-------------------- bayesian calcularot ----//
+
+
 /*
-  BayesianCalculator bayesianCalc(data,mc);
-  bayesianCalc.SetConfidenceLevel(0.95); // 68% interval
-
-  // set the type of interval (not really needed for central which is the default)
-  //bayesianCalc.SetLeftSideTailFraction(0.5); // for central interval
-  bayesianCalc.SetLeftSideTailFraction(0.); // for upper limit
-  //bayesianCalc.SetShortestInterval(); // for shortest interval
-
-
-  // set the integration type (not really needed for the default ADAPTIVE)
-  // possible alternative values are  "VEGAS" , "MISER", or "PLAIN"  (MC integration from libMathMore) 
-  // "TOYMC" (toy MC integration, work when nuisances exist and they have a constraints pdf)
-  TString integrationType = "TOYMC";
-
-  // this is needed if using TOYMC
-  if (integrationType.Contains("TOYMC") ) { 
-    RooAbsPdf * nuisPdf = RooStats::MakeNuisancePdf(mc, "constraint");
-    if (nuisPdf) bayesianCalc.ForceNuisancePdf(*nuisPdf);
-  }
-
-  // limit the number of iterations to speed-up the integral 
-  bayesianCalc.SetNumIters(10000);
-  bayesianCalc.SetIntegrationType(integrationType); 
-
-  // compute interval by scanning the posterior function
-  // it is done by default when computing shortest intervals
-  bayesianCalc.SetScanOfPosterior(50);
-
-  RooRealVar* firstPOI = (RooRealVar*) mc.GetParametersOfInterest()->first();
-
-  SimpleInterval* interval = bayesianCalc.GetInterval();
-  if (!interval) { 
-     cout << "Error computing Bayesian interval - exit " << endl;
-     return;
-  }
-
-
-  double lowerLimit = interval->LowerLimit();
-  double upperLimit = interval->UpperLimit();
-
-
-  cout << "\n95% interval on " <<firstPOI->GetName()<<" is : ["<<
-    lowerLimit << ", "<<
-    upperLimit <<"] "<<endl;
-
-  // draw plot of posterior function
-
-  RooPlot * plot = bayesianCalc.GetPosteriorPlot();
-  if (plot) plot->Draw();  
-*/
 
 //////////////////////////  hypo test 
   // get the modelConfig (S+B) out of the file
@@ -181,28 +202,6 @@ ProfileLikelihoodCalculator pl(data,mc);
   RooRealVar* poi2 = (RooRealVar*) bModel->GetParametersOfInterest()->first();
   poi2->setVal(0);
   bModel->SetSnapshot( *poi2  );
-
-  // create the AsymptoticCalculator from data,alt model, null model
-/*
- // configure ToyMC Samler (needed only for frequentit calculator)
-  ToyMCSampler *toymcs = (ToyMCSampler*)calc.GetHypoTestCalculator()->GetTestStatSampler();
-   
-  // profile likelihood test statistics 
-  ProfileLikelihoodTestStat profll(*sbModel->GetPdf());
-  // for CLs (bounded intervals) use one-sided profile likelihood
-  if (useCLs) profll.SetOneSided(true);
-
-
-   // ratio of profile likelihood - need to pass snapshot for the alt 
-  // RatioOfProfiledLikelihoodsTestStat ropl(*sbModel->GetPdf(), *bModel->GetPdf(), bModel->GetSnapshot());
-   
-  // set the test statistic to use 
-  toymcs->SetTestStatistic(&profll);
-*/
-  // if the pdf is not extended (e.g. in the Poisson model) 
-  // we need to set the number of events
- // if (!sbModel->GetPdf()->canBeExtended())
-   //  toymcs->SetNEventsPerToy(1);
 
 
 //------------ Getting the interval as function of m --------------//
@@ -248,15 +247,15 @@ ProfileLikelihoodCalculator pl(data,mc);
 
 	  double upperLimit = r->UpperLimit();
 
-/*	  std::cout << "The computed upper limit is: " << upperLimit << std::endl;
+	  std::cout << "The computed upper limit is: " << upperLimit << std::endl;
   	  // compute expected limit
-  	std::cout << "Expected upper limits, using the B (alternate) model on mu: " << std::endl;
-  	std::cout << " expected limit (median) " << r->GetExpectedUpperLimit(0) << std::endl;
-  	std::cout << " expected limit (-1 sig) " << r->GetExpectedUpperLimit(-1) << std::endl;
-  	std::cout << " expected limit (+1 sig) " << r->GetExpectedUpperLimit(1) << std::endl;
-  	std::cout << " expected limit (-2 sig) " << r->GetExpectedUpperLimit(-2) << std::endl;
-  	std::cout << " expected limit (+2 sig) " << r->GetExpectedUpperLimit(2) << std::endl;
-  */
+//  	std::cout << "Expected upper limits, using the B (alternate) model on mu: " << std::endl;
+ // 	std::cout << " expected limit (median) " << r->GetExpectedUpperLimit(0) << std::endl;
+//  	std::cout << " expected limit (-1 sig) " << r->GetExpectedUpperLimit(-1) << std::endl;
+//  	std::cout << " expected limit (+1 sig) " << r->GetExpectedUpperLimit(1) << std::endl;
+//  	std::cout << " expected limit (-2 sig) " << r->GetExpectedUpperLimit(-2) << std::endl;
+//  	std::cout << " expected limit (+2 sig) " << r->GetExpectedUpperLimit(2) << std::endl;
+  
   	std::cout << "Expected upper limits, using the B (alternate) model in terms of Xsec: " << std::endl;
   	std::cout << "The computed upper limit is: " << w.var("Xsec")->getValV() * upperLimit << std::endl;
   	std::cout << " expected limit (median) " << w.var("Xsec")->getValV() * r->GetExpectedUpperLimit(0) << std::endl;
@@ -273,13 +272,14 @@ ProfileLikelihoodCalculator pl(data,mc);
 	expected_S2_dw_v.push_back(w.var("Xsec")->getValV() * r->GetExpectedUpperLimit(-2));
 	expected_S1_dw_v.push_back(w.var("Xsec")->getValV() * r->GetExpectedUpperLimit(-1));
 	
-/*	observed_v.push_back( w.var("Xsec")->getValV() *  w.var("K_m")->getValV()* upperLimit );
-	expected_v.push_back( w.var("Xsec")->getValV() * w.var("K_m")->getValV()* r->GetExpectedUpperLimit(0) );
-	expected_S1_up_v.push_back(w.var("Xsec")->getValV() * w.var("K_m")->getValV()* r->GetExpectedUpperLimit(1));
-	expected_S2_up_v.push_back(w.var("Xsec")->getValV() * w.var("K_m")->getValV()* r->GetExpectedUpperLimit(2));
-	expected_S2_dw_v.push_back(w.var("Xsec")->getValV() * w.var("K_m")->getValV()* r->GetExpectedUpperLimit(-2));
-	expected_S1_dw_v.push_back(w.var("Xsec")->getValV() * w.var("K_m")->getValV()* r->GetExpectedUpperLimit(-1));
-*/
+
+//	observed_v.push_back( w.var("Xsec")->getValV() *  w.var("K_m")->getValV()* upperLimit );
+//	expected_v.push_back( w.var("Xsec")->getValV() * w.var("K_m")->getValV()* r->GetExpectedUpperLimit(0) );
+//	expected_S1_up_v.push_back(w.var("Xsec")->getValV() * w.var("K_m")->getValV()* r->GetExpectedUpperLimit(1));
+//	expected_S2_up_v.push_back(w.var("Xsec")->getValV() * w.var("K_m")->getValV()* r->GetExpectedUpperLimit(2));
+//	expected_S2_dw_v.push_back(w.var("Xsec")->getValV() * w.var("K_m")->getValV()* r->GetExpectedUpperLimit(-2));
+//	expected_S1_dw_v.push_back(w.var("Xsec")->getValV() * w.var("K_m")->getValV()* r->GetExpectedUpperLimit(-1));
+
    }
 
 
@@ -353,6 +353,7 @@ TLegend* lego = new TLegend(0.2,0.9,0.5,0.7);
   lego->AddEntry(Exp_limitsS2,"2 #sigma","f");
   lego->Draw();
 
+*/
 
 /*  // plot now the result of the scan 
   HypoTestInverterPlot *plot = new HypoTestInverterPlot("HTI_Result_Plot","HypoTest Scan Result",r);
@@ -399,6 +400,28 @@ TLegend* lego = new TLegend(0.2,0.9,0.5,0.7);
 
 
 
+
+  // create the AsymptoticCalculator from data,alt model, null model
+/*
+ // configure ToyMC Samler (needed only for frequentit calculator)
+  ToyMCSampler *toymcs = (ToyMCSampler*)calc.GetHypoTestCalculator()->GetTestStatSampler();
+   
+  // profile likelihood test statistics 
+  ProfileLikelihoodTestStat profll(*sbModel->GetPdf());
+  // for CLs (bounded intervals) use one-sided profile likelihood
+  if (useCLs) profll.SetOneSided(true);
+
+
+   // ratio of profile likelihood - need to pass snapshot for the alt 
+  // RatioOfProfiledLikelihoodsTestStat ropl(*sbModel->GetPdf(), *bModel->GetPdf(), bModel->GetSnapshot());
+   
+  // set the test statistic to use 
+  toymcs->SetTestStatistic(&profll);
+*/
+  // if the pdf is not extended (e.g. in the Poisson model) 
+  // we need to set the number of events
+ // if (!sbModel->GetPdf()->canBeExtended())
+   //  toymcs->SetNEventsPerToy(1);
 
 
 
