@@ -5,6 +5,7 @@
 #include "RooWorkspace.h"
 #include "RooAbsData.h"
 #include "RooRealVar.h"
+#include "TLegend.h"
 
 #include "RooStats/ModelConfig.h"
 #include "RooStats/ProfileLikelihoodCalculator.h"
@@ -105,7 +106,7 @@ RooWorkspace w("w");
    w.var("err_Acceptance_SR")->setConstant(true); 
 
 // Set input Observables
-  w.var("nobs_i")->setVal(55);
+  w.var("nobs_i")->setVal(40);
 
 // Set range and value for nuissance parameters
    w.var("N_Co_SR_bin_i")->setMax(w.var("B_i")->getValV() + sqrt(w.var("B_i")->getValV())*10.); //set to 10 sigma.
@@ -214,47 +215,9 @@ ProfileLikelihoodCalculator pl(data,mc);
   poi2->setVal(0);
   bModel->SetSnapshot( *poi2  );
 
+//------------------Limit calculation for N_th event expected = 1
+	  w.var("N_tot_theory")->setVal(1.);
 
-//------------ Getting the interval as function of m --------------//
-   ifstream in;
-   in.open("integral_mass.dat");
-   
-
-  vector <double> masses_v;
-  vector <double> observed_v;
-  vector <double> expected_v;
-  vector <double> expected_S1_up_v;
-  vector <double> expected_S1_dw_v;
-  vector <double> expected_S2_up_v;
-  vector <double> expected_S2_dw_v;
-
-  double mass_itr =0.;
-  double Nev_exp_th_itr =0.;
-  double xsec_modifier = 10.;
-  while(mass_itr <1000.){
-	TString mass_name = "";
-	in >> mass_itr;
-	in >> Nev_exp_th_itr;
-
-	//set the Xsec modifier
-	if(mass_itr > 60.) xsec_modifier = 10.;
-	if(mass_itr < 60. && mass_itr > 20.) xsec_modifier = 100.;
-	if(mass_itr < 20. && mass_itr > 15.5.) xsec_modifier = 1000.;
-	if(mass_itr < 15.5 && mass_itr > 14.) xsec_modifier = 10000.;
-	if(mass_itr < 14. && mass_itr > 13.5) xsec_modifier = 100000.;
-	if(mass_itr < 13.5) xsec_modifier = 10000000.;
- 	
-	Nev_exp_th_itr *= 224.6 * 48. * xsec_modifier;  //224.6 livedays and 48 kg and 10^-40 cm2 Xsec.
-
-	if(mass_itr < 60.){
-//	if(mass_itr > 100 && mass_itr < 105.){
-//	  char mass_name [3];
-//	  sprintf(mass_name,"%d",mass_itr);
-	  TString mass_name(TString::Itoa(mass_itr, 10));
-	  freopen ("LOG/mass_"+mass_name+".log" ,"w",stdout);
-	  w.var("N_tot_theory")->setVal(Nev_exp_th_itr);
-
-	  cout << "LIMITS INFO:  now iterating on mass point " << mass_itr << " GeV  with expected number of total signal events  " << Nev_exp_th_itr << endl;
 
 	  AsymptoticCalculator  ac(data, *bModel, *sbModel);
 	  //ac.SetOneSidedDiscovery(true);  // for one-side discovery test
@@ -284,32 +247,47 @@ ProfileLikelihoodCalculator pl(data,mc);
 	  double upperLimit = r->UpperLimit();
 
 	  std::cout << "The computed upper limit is: " << upperLimit << std::endl;
-  	  // compute expected limit
-//  	std::cout << "Expected upper limits, using the B (alternate) model on mu: " << std::endl;
- // 	std::cout << " expected limit (median) " << r->GetExpectedUpperLimit(0) << std::endl;
-//  	std::cout << " expected limit (-1 sig) " << r->GetExpectedUpperLimit(-1) << std::endl;
-//  	std::cout << " expected limit (+1 sig) " << r->GetExpectedUpperLimit(1) << std::endl;
-//  	std::cout << " expected limit (-2 sig) " << r->GetExpectedUpperLimit(-2) << std::endl;
-//  	std::cout << " expected limit (+2 sig) " << r->GetExpectedUpperLimit(2) << std::endl;
-  
+
+//------------ Getting the interval as function of m --------------//
+   ifstream in;
+   in.open("integral_mass.dat");
+   
+
+  vector <double> masses_v;
+  vector <double> observed_v;
+  vector <double> expected_v;
+  vector <double> expected_S1_up_v;
+  vector <double> expected_S1_dw_v;
+  vector <double> expected_S2_up_v;
+  vector <double> expected_S2_dw_v;
+
+  double mass_itr =0.;
+  double Nev_exp_th_itr =0.;
+  double xsec_modifier = 10.;
+  while(mass_itr <1000.){
+	in >> mass_itr;
+	in >> Nev_exp_th_itr;
+
+ 	
+	xsec_modifier = Nev_exp_th_itr * 224.6 * 48.;  //224.6 livedays and 48 kg and 10^-40 cm2 Xsec.
+
+/*  
   	std::cout << "Expected upper limits, using the B (alternate) model in terms of Xsec: " << std::endl;
-  	std::cout << "The computed upper limit is: " << 10e-40 * xsec_modifier * upperLimit << std::endl;
-  	std::cout << " expected limit (median) " << 10e-40  * xsec_modifier * r->GetExpectedUpperLimit(0) << std::endl;
-  	std::cout << " expected limit (-1 sig) " << 10e-40  * xsec_modifier * r->GetExpectedUpperLimit(-1) << std::endl;
-  	std::cout << " expected limit (+1 sig) " << 10e-40  * xsec_modifier * r->GetExpectedUpperLimit(1) << std::endl;
-  	std::cout << " expected limit (-2 sig) " << 10e-40  * xsec_modifier * r->GetExpectedUpperLimit(-2) << std::endl;
-  	std::cout << " expected limit (+2 sig) " << 10e-40  * xsec_modifier * r->GetExpectedUpperLimit(2) << std::endl;
-	
+  	std::cout << "The computed upper limit is: " << 10e-40 / xsec_modifier * upperLimit << std::endl;
+  	std::cout << " expected limit (median) " << 10e-40  / xsec_modifier * r->GetExpectedUpperLimit(0) << std::endl;
+  	std::cout << " expected limit (-1 sig) " << 10e-40  / xsec_modifier * r->GetExpectedUpperLimit(-1) << std::endl;
+  	std::cout << " expected limit (+1 sig) " << 10e-40  / xsec_modifier * r->GetExpectedUpperLimit(1) << std::endl;
+  	std::cout << " expected limit (-2 sig) " << 10e-40  / xsec_modifier * r->GetExpectedUpperLimit(-2) << std::endl;
+  	std::cout << " expected limit (+2 sig) " << 10e-40  / xsec_modifier * r->GetExpectedUpperLimit(2) << std::endl;
+*/	
 	masses_v.push_back(mass_itr);
-	observed_v.push_back( 10e-40  * xsec_modifier * upperLimit );
-	expected_v.push_back( 10e-40  * xsec_modifier * r->GetExpectedUpperLimit(0) );
-	expected_S1_up_v.push_back(10e-40  * xsec_modifier * r->GetExpectedUpperLimit(1));
-	expected_S2_up_v.push_back(10e-40  * xsec_modifier * r->GetExpectedUpperLimit(2));
-	expected_S2_dw_v.push_back(10e-40  * xsec_modifier * r->GetExpectedUpperLimit(-2));
-	expected_S1_dw_v.push_back(10e-40  * xsec_modifier * r->GetExpectedUpperLimit(-1));
+	observed_v.push_back( 10e-40  / xsec_modifier * upperLimit );
+	expected_v.push_back( 10e-40  / xsec_modifier * r->GetExpectedUpperLimit(0) );
+	expected_S1_up_v.push_back(10e-40  / xsec_modifier * r->GetExpectedUpperLimit(1));
+	expected_S2_up_v.push_back(10e-40  / xsec_modifier * r->GetExpectedUpperLimit(2));
+	expected_S2_dw_v.push_back(10e-40  / xsec_modifier * r->GetExpectedUpperLimit(-2));
+	expected_S1_dw_v.push_back(10e-40  / xsec_modifier * r->GetExpectedUpperLimit(-1));
 	
-  	fclose (stdout);
-	}
 //	observed_v.push_back( w.var("Xsec")->getValV() *  w.var("K_m")->getValV()* upperLimit );
 //	expected_v.push_back( w.var("Xsec")->getValV() * w.var("K_m")->getValV()* r->GetExpectedUpperLimit(0) );
 //	expected_S1_up_v.push_back(w.var("Xsec")->getValV() * w.var("K_m")->getValV()* r->GetExpectedUpperLimit(1));
@@ -319,6 +297,7 @@ ProfileLikelihoodCalculator pl(data,mc);
 
 
    }
+
 
 in.close();
 
@@ -362,7 +341,7 @@ Exp_limitsS2->SetMarkerSize(0);
 
 obs_limits->SetFillColor(0);
 obs_limits->SetLineWidth(3);
-//obs_limits->SetMarkerStyle(5);
+obs_limits->SetMarkerSize(0);
 
 Exp_limits->SetFillColor(0);
 Exp_limits->SetMarkerSize(0);
@@ -375,12 +354,17 @@ Exp_limitsS2->GetYaxis()->SetTitle("#sigma");
 
 Exp_limitsS2->GetXaxis()->SetTitle("M  [GeV]");
 
+
+//Exp_limitsS2->GetXaxis()->SetRangeUser(10.,1000.);
+//Exp_limitsS2->GetYaxis()->SetRangeUser(1E-38,1E-30);
+Exp_limitsS2->GetXaxis()->SetLimits(9.,1000.);
+Exp_limitsS2->GetYaxis()->SetRangeUser(1E-38,1E-30);
+
 Exp_limitsS2->Draw("Al3");
 Exp_limitsS1->Draw("sameL3");
 Exp_limits->Draw("PL");
 obs_limits->Draw("PL");
 
-//Exp_limitsS2->GetYaxis()->SetRangeUser(0.,1*e-35);
 
 TLegend* lego = new TLegend(0.2,0.9,0.5,0.7);
   lego->SetTextSize(0.033);
@@ -391,6 +375,13 @@ TLegend* lego = new TLegend(0.2,0.9,0.5,0.7);
   lego->AddEntry(Exp_limitsS1,"1 #sigma","f");
   lego->AddEntry(Exp_limitsS2,"2 #sigma","f");
   lego->Draw();
+
+
+gPad->SetLogy();
+gPad->SetLogx();
+gPad->RedrawAxis();
+
+myText(0.4,0.86,2,"Test");
 
 
 
