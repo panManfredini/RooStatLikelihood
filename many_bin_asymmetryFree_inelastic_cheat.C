@@ -161,9 +161,10 @@ ProfileLikelihoodCalculator pl(data,mc);
 	  HypoTestInverter *calc = new HypoTestInverter(ac);    // for asymptotic 
 	  //HypoTestInverter calc(fc);  // for frequentist
 
-	  calc->SetConfidenceLevel(0.95);
+	  calc->SetConfidenceLevel(0.90);
 	  calc->UseCLs(true);
-	  int npoints = 1000;  // number of points to scan
+	  int npoints = 100;  // number of points to scan
+	  //int npoints = 1000;  // number of points to scan default 1000
 	  // min and max (better to choose smaller intervals)
 	  double poimin = poi->getMin();
 	  double poimax = poi->getMax();
@@ -199,7 +200,7 @@ ProfileLikelihoodCalculator pl(data,mc);
 	in >> Nev_exp_th_itr;
 
  	
-	xsec_modifier = Nev_exp_th_itr * 224.6 * 34.;  //224.6 livedays and 34 kg and 10^-40 cm2 Xsec.
+	xsec_modifier = Nev_exp_th_itr * 224.6 * 48.;  //224.6 livedays and 48 kg and 10^-40 cm2 Xsec.
 
 	masses_v.push_back(mass_itr);
 	observed_v.push_back( 10e-40  / xsec_modifier * upperLimit );
@@ -284,7 +285,7 @@ Exp_limitsS2->GetYaxis()->SetRangeUser(1E-38,1E-30);
 Exp_limitsS2->Draw("Al3");
 Exp_limitsS1->Draw("sameL3");
 Exp_limits->Draw("PL");
-obs_limits->Draw("PL");
+//obs_limits->Draw("PL");
 
 
 TLegend* lego = new TLegend(0.2,0.9,0.5,0.7);

@@ -76,7 +76,8 @@ void retrieve_input_from_histo(RooWorkspace &w){
 //----- Model for Global Variables  -----//
    w.factory("N_tot_theory[5]");
    w.factory("Acceptance_SR[0.9,0.0,1]");
-   w.factory("mu[1.,0.,100]");
+   w.factory("mu[1.,0.,30]");
+   //w.factory("mu[1.,0.,100]");
    w.factory("Bkg_norm_factor[0.7, 0.0,10.0]");
    w.factory("S_tot[1000.0]");
 
