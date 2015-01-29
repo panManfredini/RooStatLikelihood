@@ -1,4 +1,3 @@
-void /home/pan/work/Xenon/RooStatPlayground/limit_full()
 {
 //=========Macro generated from canvas: limits/limit
 //=========  (Sun Jan 25 22:11:02 2015) by ROOT version6.02/04

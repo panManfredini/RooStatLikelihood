@@ -120,9 +120,9 @@ double S_tot 			= 13083.;//13690;	// Total events in SIGNAL REGIONS for AmBe (--
   TH1D  *h_co60_SR = (TH1D*)histos->Get("co60_SR");
   TH1D  *h_DM_SR = (TH1D*)histos->Get("DM_SR");
 
-//  h_ambe_SR->Rebin(4);
-//  h_co60_SR->Rebin(4);
-//  h_DM_SR->Rebin(4);
+  h_ambe_SR->Rebin(2);
+  h_co60_SR->Rebin(2);
+  h_DM_SR->Rebin(2);
 
 h_ambe_SR->Print("all");
 h_co60_SR->Print("all");
@@ -244,7 +244,8 @@ for (int bin_itr = 1; bin_itr <= h_ambe_SR->GetNbinsX() ; bin_itr++){
    
 
    //-- Observable
-   RooRealVar *n_obs = new RooRealVar("n_obs_"+bin_name,"observed events", B_bin*Bkg_norm_factor +10./h_ambe_SR->GetNbinsX());
+   RooRealVar *n_obs = new RooRealVar("n_obs_"+bin_name,"observed events", B_bin*Bkg_norm_factor);
+   //RooRealVar *n_obs = new RooRealVar("n_obs_"+bin_name,"observed events", B_bin*Bkg_norm_factor +10./h_ambe_SR->GetNbinsX());
 
    RooRealVar *T_n_Co = new RooRealVar("T_n_Co_"+bin_name,"T_n_Co_"+bin_name,0.,-5,5.);
    RooRealVar *T_eff = new RooRealVar("T_eff_"+bin_name,"T_eff_"+bin_name,0.,-5,5.);
