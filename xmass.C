@@ -1,0 +1,115 @@
+{
+//=========Macro generated from canvas: c1/c1
+//=========  (Thu Jan 15 15:44:14 2015) by ROOT version5.34/22
+   TCanvas *c1 = new TCanvas("c1", "c1",939,677);
+   gStyle->SetOptStat(0);
+   gStyle->SetOptTitle(0);
+   
+   TGraphErrors *gre = new TGraphErrors(2);
+   gre->SetName("Graph0");
+   gre->SetTitle("Graph");
+   gre->SetFillColor(1);
+   gre->SetMarkerStyle(20);
+   gre->SetMarkerSize(1.2);
+   gre->SetPoint(0,10,1e-42);
+   gre->SetPointError(0,0,0);
+   gre->SetPoint(1,5000,1e-33);
+   gre->SetPointError(1,0,0);
+   
+   TH1F *Graph_Graph1 = new TH1F("Graph_Graph1","Graph",100,9,5499);
+   Graph_Graph1->SetMinimum(1e-40);
+   Graph_Graph1->SetMaximum(1e-34);
+   Graph_Graph1->SetDirectory(0);
+   Graph_Graph1->SetStats(0);
+   Graph_Graph1->SetLineWidth(2);
+   Graph_Graph1->SetMarkerStyle(20);
+   Graph_Graph1->SetMarkerSize(1.2);
+   Graph_Graph1->GetXaxis()->SetRange(1,100);
+   Graph_Graph1->GetXaxis()->SetLabelFont(42);
+   Graph_Graph1->GetXaxis()->SetLabelSize(0.05);
+   Graph_Graph1->GetXaxis()->SetTitleSize(0.05);
+   Graph_Graph1->GetXaxis()->SetTitleOffset(1.4);
+   Graph_Graph1->GetXaxis()->SetTitleFont(42);
+   Graph_Graph1->GetYaxis()->SetRange(1,1);
+   Graph_Graph1->GetYaxis()->SetLabelFont(42);
+   Graph_Graph1->GetYaxis()->SetLabelSize(0.05);
+   Graph_Graph1->GetYaxis()->SetTitleSize(0.05);
+   Graph_Graph1->GetYaxis()->SetTitleOffset(1.4);
+   Graph_Graph1->GetYaxis()->SetTitleFont(42);
+   Graph_Graph1->GetZaxis()->SetLabelFont(42);
+   Graph_Graph1->GetZaxis()->SetLabelSize(0.05);
+   Graph_Graph1->GetZaxis()->SetTitleSize(0.05);
+   Graph_Graph1->GetZaxis()->SetTitleFont(42);
+   gre->SetHistogram(Graph_Graph1);
+   
+   gre->Draw("ap");
+   
+   gre = new TGraphErrors(16);
+   gre->SetName("Graph1");
+   gre->SetTitle("Graph");
+   gre->SetFillColor(1);
+   gre->SetLineWidth(3);
+   gre->SetMarkerStyle(7);
+   gre->SetMarkerSize(1.2);
+   gre->SetPoint(0,20,8e-36);
+   gre->SetPointError(0,0,0);
+   gre->SetPoint(1,29.8071,7.162923e-37);
+   gre->SetPointError(1,0,0);
+   gre->SetPoint(2,39.90202,2.027528e-37);
+   gre->SetPointError(2,0,0);
+   gre->SetPoint(3,53.41583,9.91722e-38);
+   gre->SetPointError(3,0,0);
+   gre->SetPoint(4,62.16429,7.461589e-38);
+   gre->SetPointError(4,0,0);
+   gre->SetPoint(5,69.85718,6.3506e-38);
+   gre->SetPointError(5,0,0);
+   gre->SetPoint(6,83.21777,5.354015e-38);
+   gre->SetPointError(6,0,0);
+   gre->SetPoint(7,90,5e-38);
+   gre->SetPointError(7,0,0);
+   gre->SetPoint(8,105.0887,4.600252e-38);
+   gre->SetPointError(8,0,0);
+   gre->SetPoint(9,200,5e-38);
+   gre->SetPointError(9,0,0);
+   gre->SetPoint(10,300,6e-38);
+   gre->SetPointError(10,0,0);
+   gre->SetPoint(11,388.2045,7.252295e-38);
+   gre->SetPointError(11,0,0);
+   gre->SetPoint(12,590.8438,9.823615e-38);
+   gre->SetPointError(12,0,0);
+   gre->SetPoint(13,746.1269,1.210266e-37);
+   gre->SetPointError(13,0,0);
+   gre->SetPoint(14,1000,1.5e-37);
+   gre->SetPointError(14,0,0);
+   gre->SetPoint(15,4244.204,4.354065e-37);
+   gre->SetPointError(15,0,0);
+   
+   TH1F *Graph_Graph2 = new TH1F("Graph_Graph2","Graph",100,18,5498);
+   Graph_Graph2->SetMinimum(3.87e-38);
+   Graph_Graph2->SetMaximum(8.7957e-36);
+   Graph_Graph2->SetDirectory(0);
+   Graph_Graph2->SetStats(0);
+   Graph_Graph2->SetLineWidth(2);
+   Graph_Graph2->SetMarkerStyle(20);
+   Graph_Graph2->SetMarkerSize(1.2);
+   Graph_Graph2->GetXaxis()->SetLabelFont(42);
+   Graph_Graph2->GetXaxis()->SetLabelSize(0.05);
+   Graph_Graph2->GetXaxis()->SetTitleSize(0.05);
+   Graph_Graph2->GetXaxis()->SetTitleOffset(1.4);
+   Graph_Graph2->GetXaxis()->SetTitleFont(42);
+   Graph_Graph2->GetYaxis()->SetLabelFont(42);
+   Graph_Graph2->GetYaxis()->SetLabelSize(0.05);
+   Graph_Graph2->GetYaxis()->SetTitleSize(0.05);
+   Graph_Graph2->GetYaxis()->SetTitleOffset(1.4);
+   Graph_Graph2->GetYaxis()->SetTitleFont(42);
+   Graph_Graph2->GetZaxis()->SetLabelFont(42);
+   Graph_Graph2->GetZaxis()->SetLabelSize(0.05);
+   Graph_Graph2->GetZaxis()->SetTitleSize(0.05);
+   Graph_Graph2->GetZaxis()->SetTitleFont(42);
+   gre->SetHistogram(Graph_Graph2);
+   
+   gre->Draw("pc");
+   c1->Modified();
+   c1->cd();
+   c1->SetSelected(c1);
+}

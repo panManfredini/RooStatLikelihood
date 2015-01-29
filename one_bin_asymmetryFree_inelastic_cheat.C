@@ -62,7 +62,7 @@ N_tot_theory(Mass,Xsec): for 225 livedays, 45kg and considering Xsec. It is a co
 RooWorkspace w("w");
 
 // Variable definition
-   w.factory("prod:N_s_i(N_tot_theory[5], Acceptance_SR[0.9,0.0,1], Eff_AmBe_bin_i[0.01,0.0,1], mu[1.,0.,100])");
+   w.factory("prod:N_s_i(N_tot_theory[5], Acceptance_SR[0.9,0.0,1], Eff_AmBe_bin_i[1,0.0,2], mu[1.,0.,100])");
    w.factory("prod:N_b_i(N_Co_SR_bin_i[100.0,0.0,1000.0], Bkg_norm_factor[0.7, 0.0,10.0])"); 
    w.factory("sum:nexp_i(N_s_i, N_b_i)");
 
@@ -79,20 +79,20 @@ RooWorkspace w("w");
    w.factory("Gaussian:costarint_sig_acc(Acceptance_SR_obs[0,1], Acceptance_SR, err_Acceptance_SR[0.01])");// this has the problem of boundaries acceptance cannot be larger than 1.  --->Lognormal???
 
 // the total model p.d.f will be the product of the two
-   //w.factory("Uniform::prior_b(b)"); // define the prior for b
+   //w.factory("Uniform::prior_b(b)"); // define the prior for b, not needed anymore
    //w.factory("Uniform::prior_s(s)"); // define the prior for b
    w.factory("PROD:model(pdf_i,AmBe_bin_i,Co_SR_bin_i, costraint_bkg_norm, costarint_sig_acc)");
 
 // Set input variables -- Global OBSERVABLESerr_Norm_factor
-   w.var("S_tot")->setVal(1000); 		// Total events of AmBe in SR 
-   w.var("S_i")->setMax(w.var("S_tot")->getValV());  // the range of the poisson needs to be defined
-   w.var("S_i")->setVal(500); 	  		//  Events in bin i for AmBe
-   w.var("N_tot_theory")->setVal(10); 		// Total expected Signal events
+   w.var("S_tot")->setVal(13690.); 		// Total events of AmBe in SR 
+   w.var("S_i")->setMax(w.var("S_tot")->getValV() + 1000);  // the range of the poisson needs to be defined
+   w.var("S_i")->setVal(13690.); 	  		//  Events in bin i for AmBe
+   w.var("N_tot_theory")->setVal(1); 		// Total expected Signal events
 
-   w.var("B_i")->setMax(10000);  // set to TOT Co in SR
-   w.var("B_i")->setVal(100);    // Set observed event in SR Co
-   w.var("Bkg_norm_factor_obs")->setVal(0.5); // Ratio between data in CR and Co in CR
-   w.var("err_Norm_factor")->setVal(0.05); 		/// Set error on norm factor
+   w.var("B_i")->setMax(72646.);  // set to TOT Co in SR
+   w.var("B_i")->setVal(24318.);    // Set observed event in SR Co
+   w.var("Bkg_norm_factor_obs")->setVal(0.0378); // Ratio between data in CR and Co in CR
+   w.var("err_Norm_factor")->setVal(0.0013); 		/// Set error on norm factor
    w.var("Acceptance_SR_obs")->setVal(0.9); 
    w.var("err_Acceptance_SR")->setVal(0.01);
  
@@ -106,19 +106,27 @@ RooWorkspace w("w");
    w.var("err_Acceptance_SR")->setConstant(true); 
 
 // Set input Observables
-  w.var("nobs_i")->setVal(40);
+  w.var("nobs_i")->setVal(0.0378*24318.);
 
 // Set range and value for nuissance parameters
    w.var("N_Co_SR_bin_i")->setMax(w.var("B_i")->getValV() + sqrt(w.var("B_i")->getValV())*10.); //set to 10 sigma.
    w.var("N_Co_SR_bin_i")->setVal(w.var("B_i")->getValV());  // set to observed value!!
    w.var("Eff_AmBe_bin_i")->setVal(w.var("S_i")->getValV() / w.var("S_tot")->getValV() ); // Set to observed value!!!
    w.var("Eff_AmBe_bin_i")->setMax(w.var("Eff_AmBe_bin_i")->getValV() + sqrt(w.var("S_i")->getValV()) / w.var("S_tot")->getValV() *10 ); // Set to observed value!!!
-   if(w.var("Eff_AmBe_bin_i")->getValV() + sqrt(w.var("S_i")->getValV()) / w.var("S_tot")->getValV() *10 > 1.) cout << "WARNING!!! Eff_AmBe_bin_i efficiency > 1. " << endl;
+   //if(w.var("Eff_AmBe_bin_i")->getValV() + sqrt(w.var("S_i")->getValV()) / w.var("S_tot")->getValV() *10 > 1.) cout << "WARNING!!! Eff_AmBe_bin_i efficiency > 1. " << endl;
    w.var("Acceptance_SR")->setVal(w.var("Acceptance_SR_obs")->getValV());// Set to observed value!!!
    w.var("Acceptance_SR")->setMax(w.var("Acceptance_SR_obs")->getValV() + w.var("err_Acceptance_SR")->getValV() * 10.);// Set to 10 sigma.
    w.var("Bkg_norm_factor")->setMax(w.var("Bkg_norm_factor_obs")->getValV() + w.var("err_Norm_factor")->getValV()*10.); //set to 10 sigma.
    w.var("Bkg_norm_factor")->setVal(w.var("Bkg_norm_factor_obs")->getValV());// Set to observed value!!!
-   
+
+
+   	// NP to Constant!!
+	/*w.var("N_Co_SR_bin_i")->setConstant(true);
+	w.var("Eff_AmBe_bin_i")->setConstant(true);
+	w.var("Acceptance_SR")->setConstant(true);
+	w.var("Bkg_norm_factor")->setConstant(true);
+   	*/
+
    // various printing
    w.pdf("AmBe_bin_i")->Print("all");
 
@@ -129,19 +137,17 @@ RooWorkspace w("w");
    //mc.SetPriorPdf(*w.pdf("prior_s"));
 
 // Setting nuissance parameter
+   		//RooArgSet nuissanceParameter;  // No Sys
    RooArgSet nuissanceParameter (*w.var("Bkg_norm_factor"),*w.var("Acceptance_SR"));
    nuissanceParameter.add(*w.var("N_Co_SR_bin_i"));
    nuissanceParameter.add(*w.var("Eff_AmBe_bin_i"));
    mc.SetNuisanceParameters(nuissanceParameter);
 
 // need now to set the global observable
+  		 //RooArgSet g_obs;  // noSYS
    RooArgSet g_obs(*w.var("S_i"), *w.var("B_i"));
-//   g_obs.add(*w.var("N_tot_theory"));
-//   g_obs.add(*w.var("S_tot"));
    g_obs.add(*w.var("Bkg_norm_factor_obs"));
-//   g_obs.add(*w.var("err_Norm_factor"));
    g_obs.add(*w.var("Acceptance_SR_obs"));
-//   g_obs.add(*w.var("err_Acceptance_SR"));
    mc.SetGlobalObservables(g_obs);
 
    RooArgSet observables(*w.var("nobs_i"));
@@ -172,31 +178,6 @@ w.Print();
 
 data.Print();
 
-/* 
-cout << w.var("S_i")->getValV() << endl;//<< "   "   <<  w.var("S_i_exp")->getValV() << endl;
-///////////////////////////////////////////////////////////////////////
-ProfileLikelihoodCalculator pl(data,mc);
-  pl.SetConfidenceLevel(0.95);
-  LikelihoodInterval* interval = pl.GetInterval();
-
-   // find the iterval on the first Parameter of Interest
-  RooRealVar* firstPOI = (RooRealVar*) mc.GetParametersOfInterest()->first();
-
-  double lowerLimit = interval->LowerLimit(*firstPOI);
-  double upperLimit = interval->UpperLimit(*firstPOI);
-
-
-  cout << "\n95% interval on " <<firstPOI->GetName()<<" is : ["<<
-    lowerLimit << ", "<<
-    upperLimit <<"] "<<endl;
-
-
-  LikelihoodIntervalPlot * plot = new LikelihoodIntervalPlot(interval);
-//  plot->SetRange(0,50);  // possible eventually to change ranges
-  //plot->SetNPoints(50);  // do not use too many points, it could become very slow for some models
-  plot->Draw("");  // use option TF1 if too slow (plot.Draw("tf1")
-
-*/
 
 
 
@@ -216,7 +197,6 @@ ProfileLikelihoodCalculator pl(data,mc);
   bModel->SetSnapshot( *poi2  );
 
 //------------------Limit calculation for N_th event expected = 1
-	  w.var("N_tot_theory")->setVal(1.);
 
 
 	  AsymptoticCalculator  ac(data, *bModel, *sbModel);
@@ -231,7 +211,7 @@ ProfileLikelihoodCalculator pl(data,mc);
 	  HypoTestInverter *calc = new HypoTestInverter(ac);    // for asymptotic 
 	  //HypoTestInverter calc(fc);  // for frequentist
 
-	  calc->SetConfidenceLevel(0.95);
+	  calc->SetConfidenceLevel(0.90);
 	  calc->UseCLs(true);
 	  int npoints = 1000;  // number of points to scan
 	  // min and max (better to choose smaller intervals)
@@ -269,24 +249,17 @@ ProfileLikelihoodCalculator pl(data,mc);
 	in >> Nev_exp_th_itr;
 
  	
-	xsec_modifier = Nev_exp_th_itr * 224.6 * 48.;  //224.6 livedays and 48 kg and 10^-40 cm2 Xsec.
+	xsec_modifier = Nev_exp_th_itr * 225. * 34.;  //224.6 livedays and 48 kg and 10^-40 cm2 Xsec.
 
-/*  
-  	std::cout << "Expected upper limits, using the B (alternate) model in terms of Xsec: " << std::endl;
-  	std::cout << "The computed upper limit is: " << 10e-40 / xsec_modifier * upperLimit << std::endl;
-  	std::cout << " expected limit (median) " << 10e-40  / xsec_modifier * r->GetExpectedUpperLimit(0) << std::endl;
-  	std::cout << " expected limit (-1 sig) " << 10e-40  / xsec_modifier * r->GetExpectedUpperLimit(-1) << std::endl;
-  	std::cout << " expected limit (+1 sig) " << 10e-40  / xsec_modifier * r->GetExpectedUpperLimit(1) << std::endl;
-  	std::cout << " expected limit (-2 sig) " << 10e-40  / xsec_modifier * r->GetExpectedUpperLimit(-2) << std::endl;
-  	std::cout << " expected limit (+2 sig) " << 10e-40  / xsec_modifier * r->GetExpectedUpperLimit(2) << std::endl;
-*/	
 	masses_v.push_back(mass_itr);
-	observed_v.push_back( 10e-40  / xsec_modifier * upperLimit );
-	expected_v.push_back( 10e-40  / xsec_modifier * r->GetExpectedUpperLimit(0) );
-	expected_S1_up_v.push_back(10e-40  / xsec_modifier * r->GetExpectedUpperLimit(1));
-	expected_S2_up_v.push_back(10e-40  / xsec_modifier * r->GetExpectedUpperLimit(2));
-	expected_S2_dw_v.push_back(10e-40  / xsec_modifier * r->GetExpectedUpperLimit(-2));
-	expected_S1_dw_v.push_back(10e-40  / xsec_modifier * r->GetExpectedUpperLimit(-1));
+	observed_v.push_back( 1e-40 * 1. / xsec_modifier * upperLimit );
+	expected_v.push_back( 1e-40  * 1. / xsec_modifier * r->GetExpectedUpperLimit(0) );
+	expected_S1_up_v.push_back(1e-40 *1. / xsec_modifier * r->GetExpectedUpperLimit(1));
+	expected_S2_up_v.push_back(1e-40 *1. / xsec_modifier * r->GetExpectedUpperLimit(2));
+	expected_S2_dw_v.push_back(1e-40 *1. / xsec_modifier * r->GetExpectedUpperLimit(-2));
+	expected_S1_dw_v.push_back(1e-40 *1. / xsec_modifier * r->GetExpectedUpperLimit(-1));
+
+        cout << "Mass  " << mass_itr << "  Limit   " <<  1e-40  * 1. / xsec_modifier * r->GetExpectedUpperLimit(0)  << endl;
 	
 //	observed_v.push_back( w.var("Xsec")->getValV() *  w.var("K_m")->getValV()* upperLimit );
 //	expected_v.push_back( w.var("Xsec")->getValV() * w.var("K_m")->getValV()* r->GetExpectedUpperLimit(0) );

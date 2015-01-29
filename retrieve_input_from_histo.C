@@ -53,31 +53,36 @@ void retrieve_input_from_histo(RooWorkspace &w){
   double N_tot_theory 		= 5.;  	   	// Total Expected Signal Events for a given mass and Xsec.
    */
 
-  double Bkg_norm_factor_obs  	= 0.037758 ;	// Normalizzation factor for background (N_Data_CR / N_Co_CR)
+  double Bkg_norm_factor_obs  	= 0.0378 ;	// Normalizzation factor for background (N_Data_CR / N_Co_CR)
+  //double err_Norm_factor_obs  	= 0.00013;
   double err_Norm_factor_obs  	= 0.0013;
-  double S_tot 			= 13690;	// Total events in SR for AmBe
+  double S_tot 			= 13690;	// Total events in SIGNAL REGIONS for AmBe (--> the Eff_i are the efficiencies relative to SR)
+  //double S_tot 			= 123552;	// Total events in SIGNAL REGIONS for AmBe (--> the Eff_i are the efficiencies relative to SR)
   double B_tot 			= 24318;	// Total events in SR for Co60
   double Acceptance_SR_obs	= 0.9;		// Cut Acceptance for Signal
-  double err_Acceptance_SR 	= 0.05;
-  double N_tot_theory 		= 5.;  	   	// Total Expected Signal Events for a given mass and Xsec.
+  double err_Acceptance_SR 	= 0.005;
+  //double err_Acceptance_SR 	= 0.05;
+  double N_tot_theory 		= 1.;  	// Total Expected Signal Events for a given mass and Xsec. Set to 10 because gives mu in range [0.,100]
 /**************************************************/  
 
 
 
 //---- retrieving global variables ----//
   TFile *histos  = TFile::Open("h_for_limits.root");
-  TH1D  *h_ambe_SR = (TH1D*)histos->Get("ambe_SR");
-  TH1D  *h_co60_SR = (TH1D*)histos->Get("co60_SR");
-  TH1D  *h_DM_SR = (TH1D*)histos->Get("DM_SR");
+  TH1D  *h_ambe_SR = (TH1D*)histos->Get("ambe_SR_flat");
+  TH1D  *h_co60_SR = (TH1D*)histos->Get("co60_SR_flat");
+  TH1D  *h_DM_SR = (TH1D*)histos->Get("DM_SR_flat");
 
+  h_ambe_SR->Rebin(10);
+  h_co60_SR->Rebin(10);
+  h_DM_SR->Rebin(10);
 
 
 
 //----- Model for Global Variables  -----//
-   w.factory("N_tot_theory[5]");
+   w.factory("N_tot_theory[10]");
    w.factory("Acceptance_SR[0.9,0.0,1]");
-   w.factory("mu[1.,0.,30]");
-   //w.factory("mu[1.,0.,100]");
+   w.factory("mu[1.,0.,100]");
    w.factory("Bkg_norm_factor[0.7, 0.0,10.0]");
    w.factory("S_tot[1000.0]");
 
@@ -106,8 +111,8 @@ void retrieve_input_from_histo(RooWorkspace &w){
 
 //-------- Setting Value of NP to Observed!!   ---------------//
    w.var("Acceptance_SR")->setVal(w.var("Acceptance_SR_obs")->getValV());
-   w.var("Acceptance_SR")->setMax(w.var("Acceptance_SR_obs")->getValV() + w.var("err_Acceptance_SR")->getValV() * 10.);// Set to 10 sigma.
-   w.var("Bkg_norm_factor")->setMax(w.var("Bkg_norm_factor_obs")->getValV() + w.var("err_Norm_factor")->getValV()*10.); //set to 10 sigma.
+   w.var("Acceptance_SR")->setMax(w.var("Acceptance_SR_obs")->getValV() + w.var("err_Acceptance_SR")->getValV() * 5.);// Set to 10 sigma.
+   w.var("Bkg_norm_factor")->setMax(w.var("Bkg_norm_factor_obs")->getValV() + w.var("err_Norm_factor")->getValV()*5.); //set to 10 sigma.
    w.var("Bkg_norm_factor")->setVal(w.var("Bkg_norm_factor_obs")->getValV());// Set to observed value!!!
   
   
@@ -135,16 +140,16 @@ void retrieve_input_from_histo(RooWorkspace &w){
    TString bin_name(TString::Itoa(bin_itr, 10));
 
    w.factory("prod:N_s_"+bin_name+"(N_tot_theory, Acceptance_SR, Eff_AmBe_bin_"+bin_name+"[0.01,0.0,1], mu)");
-   w.factory("prod:N_b_"+bin_name+"(N_Co_SR_bin_"+bin_name+"[100.0,0.0,1000.0], Bkg_norm_factor)"); 
+   w.factory("prod:N_b_"+bin_name+"(N_Co_SR_bin_"+bin_name+"[100.0,0.0,50000.0], Bkg_norm_factor)"); 
    w.factory("sum:nexp_"+bin_name+"(N_s_"+bin_name+", N_b_"+bin_name+")");
 // Poisson of (n | s+b)
-   w.factory("Poisson:pdf_"+bin_name+"(nobs_"+bin_name+"[0.0,1000.0],nexp_"+bin_name+")");
+   w.factory("Poisson:pdf_"+bin_name+"(nobs_"+bin_name+"[500,0.0,5000.0],nexp_"+bin_name+")");
 
 
 // Poisson constraint --- Stat uncertainty on the bin content
    w.factory("prod:S_"+bin_name+"_exp(S_tot, Eff_AmBe_bin_"+bin_name+")");   // put 1000. to right AmBe amount
    w.factory("Poisson:AmBe_bin_"+bin_name+"(S_"+bin_name+"[500,0.0,50000.0],S_"+bin_name+"_exp)");  // change 50 for multiple bin, put 1000. to right AmBe amount
-   w.factory("Poisson:Co_SR_bin_"+bin_name+"(B_"+bin_name+"[0.0,1000.0], N_Co_SR_bin_"+bin_name+")");  //change 100 for multiple bin, put 1000. to right Co tot amount in SR
+   w.factory("Poisson:Co_SR_bin_"+bin_name+"(B_"+bin_name+"[500,0.0,50000.0], N_Co_SR_bin_"+bin_name+")");  //change 100 for multiple bin, put 1000. to right Co tot amount in SR
 
    w.factory("PROD:model_"+bin_name+"(pdf_"+bin_name+",AmBe_bin_"+bin_name+",Co_SR_bin_"+bin_name+")");
 // Set input variables -- Global OBSERVABLESerr_Norm_factor
@@ -159,10 +164,10 @@ void retrieve_input_from_histo(RooWorkspace &w){
 
 
 // Set range and value for nuissance parameters
-   w.var("N_Co_SR_bin_"+bin_name)->setMax(B_bin + sqrt(B_bin)*10.); //set to 10 sigma.
+   w.var("N_Co_SR_bin_"+bin_name)->setMax(B_bin + sqrt(B_bin)*5.); //set to 10 sigma.
    w.var("N_Co_SR_bin_"+bin_name)->setVal(B_bin);  		// set to observed value!!
    w.var("Eff_AmBe_bin_"+bin_name)->setVal(S_bin/ S_tot ); // Set to observed value!!!
-   w.var("Eff_AmBe_bin_"+bin_name)->setMax( (S_bin + sqrt(S_bin)*10.) / S_tot ); // Set to observed value!!!
+   w.var("Eff_AmBe_bin_"+bin_name)->setMax( (S_bin + sqrt(S_bin)*5.) / S_tot ); // Set to observed value!!!
    if(w.var("Eff_AmBe_bin_"+bin_name)->getMax() > 1.) cout << "WARNING!!! Eff_AmBe_bin_"+bin_name+" efficiency > 1. " << endl;
 
 //Set Observed events!

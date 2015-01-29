@@ -61,6 +61,7 @@ N_tot_theory(Mass,Xsec): for 225 livedays, 45kg and considering Xsec. It is a co
 
   RooWorkspace w("w");
 
+  //gROOT->ProcessLine(".L retrieve_input_from_histo_NoSys.C+");
   gROOT->ProcessLine(".L retrieve_input_from_histo.C+");
 
   retrieve_input_from_histo(w);
@@ -145,15 +146,14 @@ ProfileLikelihoodCalculator pl(data,mc);
   poi2->setVal(0);
   bModel->SetSnapshot( *poi2  );
 
-//------------------Limit calculation for N_th event expected = 1
-	  w.var("N_tot_theory")->setVal(1.);
+//------------------Limit calculation for N_th event expected = 10
 
 
 	  AsymptoticCalculator  ac(data, *bModel, *sbModel);
 	  //ac.SetOneSidedDiscovery(true);  // for one-side discovery test
-	  ac.SetOneSided(true);  // for one-side tests (limits)
-	  //  ac->SetQTilde(true);
-	  ac.SetPrintLevel(0);  // to suppress print level 
+//	  ac.SetOneSided(true);  // for one-side tests (limits)
+	    ac->SetQTilde(true);
+	  ac.SetPrintLevel(2);  // to suppress print level 
 
 
 	// create hypotest inverter 
@@ -162,8 +162,9 @@ ProfileLikelihoodCalculator pl(data,mc);
 	  //HypoTestInverter calc(fc);  // for frequentist
 
 	  calc->SetConfidenceLevel(0.90);
+	  //calc->UseCLs(false);
 	  calc->UseCLs(true);
-	  int npoints = 100;  // number of points to scan
+	  int npoints = 500;  // number of points to scan
 	  //int npoints = 1000;  // number of points to scan default 1000
 	  // min and max (better to choose smaller intervals)
 	  double poimin = poi->getMin();
@@ -177,16 +178,17 @@ ProfileLikelihoodCalculator pl(data,mc);
 
 	  double upperLimit = r->UpperLimit();
 
-	  std::cout << "The computed upper limit is: " << upperLimit << std::endl;
+	  std::cout << "The computed Expected upper limit is: " <<  r->GetExpectedUpperLimit(0) << std::endl;
 
 //------------ Getting the interval as function of m --------------//
-   ifstream in;
+/*   ifstream in;
    in.open("integral_mass.dat");
    
 
   vector <double> masses_v;
   vector <double> observed_v;
   vector <double> expected_v;
+  vector <double> expected_gaud_v;
   vector <double> expected_S1_up_v;
   vector <double> expected_S1_dw_v;
   vector <double> expected_S2_up_v;
@@ -195,20 +197,25 @@ ProfileLikelihoodCalculator pl(data,mc);
   double mass_itr =0.;
   double Nev_exp_th_itr =0.;
   double xsec_modifier = 10.;
+  double N_tot_theory = w.var("N_tot_theory")->getValV();
+
   while(mass_itr <1000.){
 	in >> mass_itr;
 	in >> Nev_exp_th_itr;
 
  	
-	xsec_modifier = Nev_exp_th_itr * 224.6 * 48.;  //224.6 livedays and 48 kg and 10^-40 cm2 Xsec.
+	xsec_modifier = Nev_exp_th_itr * 225.009 * 34.;  //225.009 livedays and 34 kg and 10^-40 cm2 Xsec.
 
 	masses_v.push_back(mass_itr);
-	observed_v.push_back( 10e-40  / xsec_modifier * upperLimit );
-	expected_v.push_back( 10e-40  / xsec_modifier * r->GetExpectedUpperLimit(0) );
-	expected_S1_up_v.push_back(10e-40  / xsec_modifier * r->GetExpectedUpperLimit(1));
-	expected_S2_up_v.push_back(10e-40  / xsec_modifier * r->GetExpectedUpperLimit(2));
-	expected_S2_dw_v.push_back(10e-40  / xsec_modifier * r->GetExpectedUpperLimit(-2));
-	expected_S1_dw_v.push_back(10e-40  / xsec_modifier * r->GetExpectedUpperLimit(-1));
+	observed_v.push_back( 1.e-40  * N_tot_theory / xsec_modifier * upperLimit );
+	expected_v.push_back( 1.e-40  * N_tot_theory / xsec_modifier * r->GetExpectedUpperLimit(0) );
+	expected_gaud_v.push_back(7e-38 *  1.37590955945e-05 / Nev_exp_th_itr );
+	expected_S1_up_v.push_back(1.e-40  * N_tot_theory / xsec_modifier * r->GetExpectedUpperLimit(1));
+	expected_S2_up_v.push_back(1.e-40  * N_tot_theory / xsec_modifier * r->GetExpectedUpperLimit(2));
+	expected_S2_dw_v.push_back(1.e-40  * N_tot_theory / xsec_modifier * r->GetExpectedUpperLimit(-2));
+	expected_S1_dw_v.push_back(1.e-40  * N_tot_theory / xsec_modifier * r->GetExpectedUpperLimit(-1));
+
+	cout << "Expected median limit for mass " << mass_itr << " GeV  = " << 1.e-40  * N_tot_theory / xsec_modifier * r->GetExpectedUpperLimit(0) << " cm^2 " << endl;
 	
 //	observed_v.push_back( w.var("Xsec")->getValV() *  w.var("K_m")->getValV()* upperLimit );
 //	expected_v.push_back( w.var("Xsec")->getValV() * w.var("K_m")->getValV()* r->GetExpectedUpperLimit(0) );
@@ -228,6 +235,7 @@ double xe[n];
 double mA[n];
 double observed[n];
 double expected[n];
+double expected_gaudenz[n];
 double exSigma1_l[n];
 double exSigma1_u[n];
 double exSigma2_l[n];
@@ -238,6 +246,7 @@ for(int k=0; k< n; k++){
 	mA[k] = masses_v[k];
 	observed[k] = observed_v[k];
 	expected[k] = expected_v[k];
+	expected_gaudenz[k] = expected_gaud_v[k];
 	exSigma1_l[k] =expected_v[k] -  expected_S1_dw_v[k] ;
  	exSigma1_u[k] = expected_S1_up_v[k] - expected_v[k];
 	exSigma2_l[k] = expected_v[k] - expected_S2_dw_v[k];
@@ -248,6 +257,46 @@ TGraphErrors *obs_limits = new TGraphErrors(n, mA, observed);
 TGraphErrors *Exp_limits = new TGraphErrors(n, mA, expected );
 TGraphAsymmErrors *Exp_limitsS1 = new TGraphAsymmErrors(n, mA, expected ,xe, xe, exSigma1_l, exSigma1_u );
 TGraphAsymmErrors *Exp_limitsS2 = new TGraphAsymmErrors(n, mA, expected ,xe, xe, exSigma2_l, exSigma2_u);
+
+TGraphErrors *Exp_limits_gaudenz = new TGraphErrors( n, mA, expected_gaudenz);
+
+//double expected_xmass[15] = {8e-36,7e-37, 2e-37, 1e-37, 8e-38, 6e-38, 5.5e-38, 5e-38,  4.3e-38, 5e-38, 6e-38, 7e-38, 9e-38, 1.2e-37, 1.5e-37};
+//double m_xmass[15] = { 20, 30., 40., 50., 60., 70., 80., 90.,  100., 200., 300., 400, 500.,700., 1000.};
+
+TGraphErrors *Exp_limits_xmass = new TGraphErrors(16);
+   Exp_limits_xmass->SetPoint(0,20,8e-36);
+   Exp_limits_xmass->SetPointError(0,0,0);
+   Exp_limits_xmass->SetPoint(1,29.8071,7.162923e-37);
+   Exp_limits_xmass->SetPointError(1,0,0);
+   Exp_limits_xmass->SetPoint(2,39.90202,2.027528e-37);
+   Exp_limits_xmass->SetPointError(2,0,0);
+   Exp_limits_xmass->SetPoint(3,53.41583,9.91722e-38);
+   Exp_limits_xmass->SetPointError(3,0,0);
+   Exp_limits_xmass->SetPoint(4,62.16429,7.461589e-38);
+   Exp_limits_xmass->SetPointError(4,0,0);
+   Exp_limits_xmass->SetPoint(5,69.85718,6.3506e-38);
+   Exp_limits_xmass->SetPointError(5,0,0);
+   Exp_limits_xmass->SetPoint(6,83.21777,5.354015e-38);
+   Exp_limits_xmass->SetPointError(6,0,0);
+   Exp_limits_xmass->SetPoint(7,90,5e-38);
+   Exp_limits_xmass->SetPointError(7,0,0);
+   Exp_limits_xmass->SetPoint(8,105.0887,4.600252e-38);
+   Exp_limits_xmass->SetPointError(8,0,0);
+   Exp_limits_xmass->SetPoint(9,200,5e-38);
+   Exp_limits_xmass->SetPointError(9,0,0);
+   Exp_limits_xmass->SetPoint(10,300,6e-38);
+   Exp_limits_xmass->SetPointError(10,0,0);
+   Exp_limits_xmass->SetPoint(11,388.2045,7.252295e-38);
+   Exp_limits_xmass->SetPointError(11,0,0);
+   Exp_limits_xmass->SetPoint(12,590.8438,9.823615e-38);
+   Exp_limits_xmass->SetPointError(12,0,0);
+   Exp_limits_xmass->SetPoint(13,746.1269,1.210266e-37);
+   Exp_limits_xmass->SetPointError(13,0,0);
+   Exp_limits_xmass->SetPoint(14,1000,1.5e-37);
+   Exp_limits_xmass->SetPointError(14,0,0);
+   Exp_limits_xmass->SetPoint(15,4244.204,4.354065e-37);
+   Exp_limits_xmass->SetPointError(15,0,0);
+
 
 TCanvas *c1 = new TCanvas("limits", "limit", 600, 600);
 
@@ -270,6 +319,15 @@ Exp_limits->SetMarkerSize(0);
 Exp_limits->SetLineStyle(7);
 Exp_limits->SetLineWidth(3);
 
+Exp_limits_gaudenz->SetFillColor(0);
+Exp_limits_gaudenz->SetMarkerSize(0);
+Exp_limits_gaudenz->SetLineWidth(3);
+Exp_limits_gaudenz->SetLineColor(4);
+
+Exp_limits_xmass->SetFillColor(0);
+Exp_limits_xmass->SetMarkerSize(0);
+Exp_limits_xmass->SetLineWidth(3);
+Exp_limits_xmass->SetLineColor(2);
 
 //Exp_limitsS2->GetYaxis()->SetTitle("#sigma#timesBR( #phi #rightarrow #tau#tau )  [pb]");
 Exp_limitsS2->GetYaxis()->SetTitle("#sigma");
@@ -277,14 +335,18 @@ Exp_limitsS2->GetYaxis()->SetTitle("#sigma");
 Exp_limitsS2->GetXaxis()->SetTitle("M  [GeV]");
 
 
-//Exp_limitsS2->GetXaxis()->SetRangeUser(10.,1000.);
-//Exp_limitsS2->GetYaxis()->SetRangeUser(1E-38,1E-30);
 Exp_limitsS2->GetXaxis()->SetLimits(9.,1000.);
 Exp_limitsS2->GetYaxis()->SetRangeUser(1E-38,1E-30);
+
+Exp_limits->GetXaxis()->SetLimits(9.,1000.);
+Exp_limits->GetYaxis()->SetRangeUser(1E-38,1E-30);
+
 
 Exp_limitsS2->Draw("Al3");
 Exp_limitsS1->Draw("sameL3");
 Exp_limits->Draw("PL");
+Exp_limits_gaudenz->Draw("PC");
+Exp_limits_xmass->Draw("PC");
 //obs_limits->Draw("PL");
 
 
@@ -292,8 +354,10 @@ TLegend* lego = new TLegend(0.2,0.9,0.5,0.7);
   lego->SetTextSize(0.033);
   lego->SetFillColor(0);
   lego->SetBorderSize(0);
-  lego->AddEntry(obs_limits,"Observed 95\% CLs limit");
-  lego->AddEntry(Exp_limits, "Expected 95\% CLs limit");
+  lego->AddEntry(obs_limits,"Observed 90\% CLs limit");
+  lego->AddEntry(Exp_limits_gaudenz, "Expected 90\% Gaudenz");
+  lego->AddEntry(Exp_limits_xmass, "Expected 90\% XMASS");
+  lego->AddEntry(Exp_limits, "Expected 90\% CLs limit");
   lego->AddEntry(Exp_limitsS1,"1 #sigma","f");
   lego->AddEntry(Exp_limitsS2,"2 #sigma","f");
   lego->Draw();
@@ -301,9 +365,33 @@ TLegend* lego = new TLegend(0.2,0.9,0.5,0.7);
 
 gPad->SetLogy();
 gPad->SetLogx();
-gPad->RedrawAxis();
+gPad->RedrawAxis("g");
 
 myText(0.4,0.86,2,"Test");
+
+*/
+
+
+  // now use the profile inspector
+  ProfileInspector p;
+  TList* list = p.GetListOfProfilePlots(data,&mc);
+  
+  // now make plots
+  TCanvas* c1 = new TCanvas("c1","ProfileInspectorDemo",800,200);
+  if(list->GetSize()>4){
+    double n = list->GetSize();
+    int nx = (int)sqrt(n) ;
+    int ny = TMath::CeilNint(n/nx);
+    nx = TMath::CeilNint( sqrt(n) );
+    c1->Divide(ny,nx);
+  } else
+    c1->Divide(list->GetSize());
+  for(int i=0; i<list->GetSize(); ++i){
+    c1->cd(i+1);
+    list->At(i)->Draw("al");
+  }
+  
+  cout << endl;
 
 
 
