@@ -24,6 +24,7 @@
 #include "RooStats/HypoTestPlot.h"
 */
 
+
 #include "RooStats/ModelConfig.h"
 #include "RooStats/ProfileLikelihoodCalculator.h"
 #include "RooStats/LikelihoodInterval.h"
@@ -49,7 +50,7 @@
 #include <fstream>     // std::cout, std::ios
 #include <stdio.h>
 #include "Math/MinimizerOptions.h"
-
+#include "statTest.C"
 
 
 
@@ -99,6 +100,8 @@ Events in TOTAL for Co60  72157
 Events in TOTAL for DATA  2685
 TOTAL integrated livetime 225.009 days
 */
+
+gROOT->ProcessLine(".L statTest.C+");
 
 double n_bins = 1.;
 
@@ -323,7 +326,7 @@ RooProdPdf model("model","model",product) ;
 RooDataSet data("data","", observables);
 data.add(observables);
 
-
+/*
   //////////////////////////////////////////////
   // now use the profile inspector
   ProfileInspector p;
@@ -345,6 +348,7 @@ data.add(observables);
   }
   
   cout << endl;
+*/
 
 w.Print();
 
@@ -361,29 +365,108 @@ frame->Draw();
 
 
 
+
+
+
 //----------------   Limit testing   -----------------///
+	RooRandom::randomGenerator()->SetSeed(3021);
+	//--- container of observables and global observables
+	RooArgSet obs_plus_glob (observables, g_obs,"allObs");
+	
+	// generating dataset from distro
+	int nEvents = 1; 	// events to generate
+	mu.setVal(1.);   	// mu value to generate
+
+	//--- generate dataset randomizing observables only.
+	RooDataSet *fakeData = model.generate(observables,nEvents);
+
+	cout << "\n\n\n----------------------FAKE DATA USED ------\n\n\n" << endl;
+	fakeData->Print("all");
+	RooRealVar* obsVar = NULL;
+	for(int k=0; k < nEvents ; k++){	
+		TIterator* itObs = fakeData->get(k)->createIterator();
+		while( (obsVar = (RooRealVar*) itObs->Next()) ){
+		cout << obsVar->GetName() << "    "  << obsVar->getVal() << endl;
+		}
+		cout << "\n\n\n----------------------FAKE DATA USED ------\n\n\n" << endl;
+	}
+
+      gROOT->ProcessLine(".! mkdir limit_test_plots");
+
       TCanvas* c2 = new TCanvas("c2","NuissanceTest",800,600);
       bool IsConditionnal = false;
 	
       RooAbsPdf *pdftmp = mc.GetPdf();
       ROOT::Math::MinimizerOptions::SetDefaultStrategy(2);
-      RooFitResult *fitres = pdftmp->fitTo( data , Save() , Minos(true) );
+      RooFitResult *fitres = pdftmp->fitTo( *fakeData , Save() , Minos(true) );
       cout << endl;
       cout << endl;
-      if (IsConditionnal) cout << "Conditionnal fit : mu is fixed at " << endl; //<< mu << endl;
-      else                cout << "Unconditionnal fit : mu is fitted" << endl;
    //   double muhat = firstPOI->getVal();
    //   firstPOI->setConstant(kFALSE);
+
+    RooRealVar * firstPOI = dynamic_cast<RooRealVar*>(mc.GetParametersOfInterest()->first());
+
+///----------------------  HERE START NEW
+
+    const RooArgSet *ParaGlobalFit = mc.GetNuisanceParameters();
+    double muhat = firstPOI->getVal();
+    firstPOI->setConstant(kFALSE);
+
+    
+    if (IsConditionnal) cout << "Conditionnal fit : mu is fixed at "  << muhat << endl;
+    else                cout << "Unconditionnal fit : mu is fitted" << endl;
+    
+
+    // PLotting the nuisance paramaters pulls 
+    RooRealVar* var = NULL;
+    const int nPara = ParaGlobalFit->getSize();
+
+    TH1D *h1Dpull = new TH1D("h1Dpull","Pulls",nPara,0.5, nPara + 0.5);
+    TH1D *h1sigma = new TH1D("h1sigma","Pulls",nPara, 0.5 , nPara + 0.5);
+    h1Dpull->GetYaxis()->SetRangeUser(-4,4);
+    h1Dpull->GetYaxis()->SetTitle("(NP_{fit} - NP_{0}) / #DeltaNP");
+
+    double ib=0;
+    TIterator* it2 = mc.GetNuisanceParameters()->createIterator();
+    while( (var = (RooRealVar*) it2->Next()) ){
+      
+      // Not consider nuisance parameter being not associated to syst
+      TString varname = var->GetName();
+      
+      double pull  = var->getVal()  ; // GetValue() return value in unit of sigma
+      double errorHi = var->getErrorHi() ; 
+      double errorLo = var->getErrorLo() ; 
+      
+
+      ib++;
+      h1Dpull->GetXaxis()->SetBinLabel(ib,varname);
+      h1Dpull->SetBinContent(ib,pull);
+      h1Dpull->SetBinError(ib,errorHi);
+
+      h1sigma->SetBinContent(ib,0.);	
+      h1sigma->SetBinError(ib,1.);	
+  
+      } 
+    h1Dpull->GetXaxis()->LabelsOption("v"); //Ale
+    h1Dpull->Draw();
+    h1sigma->SetFillColor(3);
+    h1sigma->Draw("same E3");
+    h1Dpull->Draw("same");
+
+///----  HERE ENDS
+
+
   
     //--- correlation matrix 
     TH2D *h2Dcorrelation = (TH2D*) fitres->correlationHist();
+    h2Dcorrelation->GetXaxis()->LabelsOption("v"); //Ale
     h2Dcorrelation->Draw("colz");
+    c2->Print("limit_test_plots/correlation_matrix.png");
   
 
    // Plotting the likelihood projection in each NP direction
-    RooRealVar* var = NULL;
     RooRealVar * poi_test =  (RooRealVar*)(mc.GetParametersOfInterest()->first());
-    RooAbsReal* nll = pdftmp->createNLL(data);
+    RooAbsReal* nll = pdftmp->createNLL(*fakeData);
     TIterator* it3 = mc.GetNuisanceParameters()->createIterator();
     while( (var = (RooRealVar*) it3->Next()) ){
       TString vname=var->GetName();
@@ -391,19 +474,24 @@ frame->Draw();
       nll->plotOn(frame2,LineColor(kRed),ShiftToZero()) ;
       frame2->GetYaxis()->SetRangeUser(0.0,5.0);
       frame2->GetYaxis()->SetTitle("#Delta [-2Log(L)]");
-      new TCanvas( "NLLscan_"+vname );
+      TCanvas *ccc = new TCanvas( "NLLscan_"+vname );
+      ccc->cd();
       frame2->Draw();
+      ccc->Print("limit_test_plots/NLLscan_"+vname+".png");
    }
      RooPlot* frame2 = poi_test->frame(Title("-log(L) vs POI")) ;
      nll->plotOn(frame2,LineColor(kRed),ShiftToZero()) ;frame2->GetYaxis()->SetRangeUser(0.0,5.0);
       frame2->GetYaxis()->SetTitle("#Delta [-2Log(L)]");
-      new TCanvas( "NLLscan_mu" );
+      TCanvas *ccc = new TCanvas( "NLLscan_mu" );
+      ccc->cd();
       frame2->Draw();
-
+      ccc->Print("limit_test_plots/NLLscan_mu.png");	
      
 
 
 
+/// limit testing with toys:
+//statTest(1.0,0., &mc, &data);
 
 
 
