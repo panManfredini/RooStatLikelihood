@@ -370,16 +370,36 @@ frame->Draw();
 
 //----------------   Limit testing   -----------------///
 	RooRandom::randomGenerator()->SetSeed(3021);
-	//--- container of observables and global observables
-	RooArgSet obs_plus_glob (observables, g_obs,"allObs");
+/*    ToyMCSampler sampler;
+    sampler.SetPdf(*mc.GetPdf());
+    sampler.SetObservables(*mc.GetObservables());
+    sampler.SetNToys(1000);
+    sampler.SetGlobalObservables(*mc.GetGlobalObservables());
+    sampler.SetParametersForTestStat(*mc.GetParametersOfInterest());
+    RooArgSet* poiset = dynamic_cast<RooArgSet*>(mc.GetParametersOfInterest()->Clone());
+    RooDataSet* sd = sampler.GetSamplingDistributions(*poiset);
+*/
+
+
+
+        gROOT->ProcessLine(".! mkdir limit_test_plots");
+        TCanvas* c2 = new TCanvas("c2","NuissanceTest",800,600);
+        bool IsConditionnal = false;
 	
 	// generating dataset from distro
-	int nEvents = 1; 	// events to generate
+	int nEvents = 1000; 	// events to generate
 	mu.setVal(1.);   	// mu value to generate
+
+	//--- container of observables and global observables
+	RooArgSet obs_plus_glob (observables, g_obs,"allObs");
+	RooArgSet *np_poi = new RooArgSet(nuissanceP, "nuissance plus poi");
+	np_poi->add(mu);
+	RooDataSet NP_AfterFit("NP_AfterFit","nuissance after fit",*np_poi);
 
 	//--- generate dataset randomizing observables only.
 	RooDataSet *fakeData = model.generate(observables,nEvents);
 
+	// print the generated dataset
 	cout << "\n\n\n----------------------FAKE DATA USED ------\n\n\n" << endl;
 	fakeData->Print("all");
 	RooRealVar* obsVar = NULL;
@@ -391,19 +411,54 @@ frame->Draw();
 		cout << "\n\n\n----------------------FAKE DATA USED ------\n\n\n" << endl;
 	}
 
-      gROOT->ProcessLine(".! mkdir limit_test_plots");
 
-      TCanvas* c2 = new TCanvas("c2","NuissanceTest",800,600);
-      bool IsConditionnal = false;
+	     ////----------- CONDITIONAL FIT -------------------//
+		mu.setVal(2.);								// conditional fit 
+		mu.setConstant(true);							//with mu =0
+		((RooRealVar*)mc.GetParametersOfInterest()->first())->setVal(2.);
+		((RooRealVar*)mc.GetParametersOfInterest()->first())->setConstant(true);
+             //------------------------------------------------//
+
+
+	for(int d=0; d < nEvents; d++) 
+	  {	
+		RooArgSet *tmpArgSet = (RooArgSet*)fakeData->get(d);			//Get generated obs
+		RooDataSet tmpData("tmpData","temp data",*tmpArgSet);			//build dataset of them
+		tmpData.add(*tmpArgSet);						
+		
+      		RooAbsPdf *pdftmp = mc.GetPdf();					//get the pdf
+
+      		ROOT::Math::MinimizerOptions::SetDefaultStrategy(2);			//		
+      		RooFitResult *fitres = pdftmp->fitTo( tmpData , Save() , Minos(true), PrintLevel(-1) ); //Do the fit on pseudo data
+
+    		RooArgSet ParaGlobalFit(*mc.GetNuisanceParameters());		//Get fitted NP (included mu)
+		ParaGlobalFit.add(*mc.GetParametersOfInterest()->first());
+
+		NP_AfterFit.add(ParaGlobalFit);					//store it in a dataset
+		///----test
+    		/*TIterator* it2 = ParaGlobalFit.createIterator();
+    		RooRealVar* var = NULL;
+    		while( (var = (RooRealVar*) it2->Next()) ){
+      
+      			// Not consider nuisance parameter being not associated to syst
+      			TString varname = var->GetName();
+      			cout << varname << endl;
+		}
+      		*/
+	  }	
+
+	TFile f("mytoys_conditional.root", "RECREATE");
+//	TFile f("mytoys.root", "RECREATE");
+	TTree *toyTree = RooStats::GetAsTTree("toyTree", "NP post fitted", NP_AfterFit);
+        f.cd();
+        toyTree->Write();
+        f.Close();
 	
-      RooAbsPdf *pdftmp = mc.GetPdf();
-      ROOT::Math::MinimizerOptions::SetDefaultStrategy(2);
-      RooFitResult *fitres = pdftmp->fitTo( *fakeData , Save() , Minos(true) );
       cout << endl;
       cout << endl;
    //   double muhat = firstPOI->getVal();
    //   firstPOI->setConstant(kFALSE);
-
+/*
     RooRealVar * firstPOI = dynamic_cast<RooRealVar*>(mc.GetParametersOfInterest()->first());
 
 ///----------------------  HERE START NEW
@@ -493,7 +548,7 @@ frame->Draw();
 /// limit testing with toys:
 //statTest(1.0,0., &mc, &data);
 
-
+*/
 
 /*
 //////////////////////////  hypo test 
