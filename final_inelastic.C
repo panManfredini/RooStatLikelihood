@@ -103,9 +103,10 @@ TOTAL integrated livetime 225.009 days
 
 gROOT->ProcessLine(".L statTest.C+");
 
-double n_bins = 1.;
+double n_bins = 16.;
 
-double N_bkg_SR = 24200.; //24318.;
+double N_bkg_SR = 27030.; 
+double normalized_bkg = 573.036;
 double Bkg_norm_factor = 0.0380;//0.0378;
 double err_Bkg_norm_factor = 0.0013;
 
@@ -369,7 +370,6 @@ frame->Draw();
 
 
 //----------------   Limit testing   -----------------///
-	RooRandom::randomGenerator()->SetSeed(3021);
 /*    ToyMCSampler sampler;
     sampler.SetPdf(*mc.GetPdf());
     sampler.SetObservables(*mc.GetObservables());
@@ -379,7 +379,8 @@ frame->Draw();
     RooArgSet* poiset = dynamic_cast<RooArgSet*>(mc.GetParametersOfInterest()->Clone());
     RooDataSet* sd = sampler.GetSamplingDistributions(*poiset);
 */
-
+/*
+	RooRandom::randomGenerator()->SetSeed(3021);
 
 
         gROOT->ProcessLine(".! mkdir limit_test_plots");
@@ -436,7 +437,7 @@ frame->Draw();
 
 		NP_AfterFit.add(ParaGlobalFit);					//store it in a dataset
 		///----test
-    		/*TIterator* it2 = ParaGlobalFit.createIterator();
+*/    		/*TIterator* it2 = ParaGlobalFit.createIterator();
     		RooRealVar* var = NULL;
     		while( (var = (RooRealVar*) it2->Next()) ){
       
@@ -445,7 +446,7 @@ frame->Draw();
       			cout << varname << endl;
 		}
       		*/
-	  }	
+/*	  }	
 
 	TFile f("mytoys_conditional.root", "RECREATE");
 //	TFile f("mytoys.root", "RECREATE");
@@ -458,6 +459,8 @@ frame->Draw();
       cout << endl;
    //   double muhat = firstPOI->getVal();
    //   firstPOI->setConstant(kFALSE);
+*/
+
 /*
     RooRealVar * firstPOI = dynamic_cast<RooRealVar*>(mc.GetParametersOfInterest()->first());
 
@@ -550,7 +553,7 @@ frame->Draw();
 
 */
 
-/*
+
 //////////////////////////  hypo test 
   // get the modelConfig (S+B) out of the file
   // and create the B model from the S+B model
@@ -585,7 +588,8 @@ frame->Draw();
 
 	  calc->SetConfidenceLevel(0.90);
 	  calc->UseCLs(true);
-	  int npoints = 1000;  // number of points to scan
+	  int npoints = 100;  // number of points to scan
+	  //int npoints = 1000;  // number of points to scan
 	  // min and max (better to choose smaller intervals)
 	  double poimin = poi->getMin();
 	  double poimax = poi->getMax();
@@ -770,9 +774,9 @@ Exp_limits->GetXaxis()->SetLimits(9.,1000.);
 Exp_limits->GetYaxis()->SetRangeUser(1E-38,1E-33);
 
 
-//Exp_limitsS2->Draw("Al3");
-//Exp_limitsS1->Draw("sameL3");
-Exp_limits->Draw("APL");
+Exp_limitsS2->Draw("Al4");
+Exp_limitsS1->Draw("sameL4");
+Exp_limits->Draw("samePC");
 //Exp_limits_gaudenz->Draw("PC");
 //Exp_limits_xmass->Draw("PC");
 //obs_limits->Draw("PL");
@@ -797,5 +801,5 @@ gPad->RedrawAxis("g");
 
 //myText(0.4,0.86,2,"Test");
 
-*/
+
 }

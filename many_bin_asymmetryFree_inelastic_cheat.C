@@ -6,6 +6,7 @@
 #include "RooAbsData.h"
 #include "RooRealVar.h"
 #include "TLegend.h"
+#include "retrieve_input_from_histo.C"
 
 #include "RooStats/ModelConfig.h"
 #include "RooStats/ProfileLikelihoodCalculator.h"
@@ -152,7 +153,7 @@ ProfileLikelihoodCalculator pl(data,mc);
 	  AsymptoticCalculator  ac(data, *bModel, *sbModel);
 	  //ac.SetOneSidedDiscovery(true);  // for one-side discovery test
 //	  ac.SetOneSided(true);  // for one-side tests (limits)
-	    ac->SetQTilde(true);
+	    ac.SetQTilde(true);
 	  ac.SetPrintLevel(2);  // to suppress print level 
 
 
