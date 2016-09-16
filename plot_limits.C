@@ -1,6 +1,6 @@
 {
 
-TFile f("limit_all.root");
+TFile f("limits/limit_all.root");
 
 TGraphErrors *obs_limits = (TGraphErrors*) f.Get("obs_limits"); 
 TGraphErrors *Exp_limits = (TGraphErrors*) f.Get("Exp_limits"); 
@@ -84,9 +84,10 @@ Exp_limitsS2->SetTitle("");
 
 Exp_limitsS2->Draw("A3");
 Exp_limitsS1->Draw("same3");
-Exp_limits_xmass->Draw("samePC");
-Exp_limits->Draw("samePC");
-obs_limits->Draw("samePC");
+Exp_limits_xmass->Draw("samePc");
+Exp_limits->Draw("samePc");
+obs_limits->SetMarkerStyle(20);
+obs_limits->Draw("samePc");
 
 
 TLegend* lego = new TLegend(0.2,0.9,0.5,0.7);
