@@ -9,102 +9,70 @@ RooWorkspace(w) w contents
 
 variables
 ---------
-(E_Acc,E_Acc_T,E_Bkg_norm_factor,E_n_Co_1,E_n_Co_10,E_n_Co_11,E_n_Co_12,E_n_Co_13,E_n_Co_14,E_n_Co_15,E_n_Co_16,E_n_Co_2,E_n_Co_3,E_n_Co_4,E_n_Co_5,E_n_Co_6,E_n_Co_7,E_n_Co_T_1,E_n_Co_T_10,E_n_Co_T_11,E_n_Co_T_12,E_n_Co_T_13,E_n_Co_T_14,E_n_Co_T_15,E_n_Co_T_16,E_n_Co_T_2,E_n_Co_T_3,E_n_Co_T_4,E_n_Co_T_5,E_n_Co_T_6,E_n_Co_T_7,E_n_S_1,E_n_S_10,E_n_S_11,E_n_S_12,E_n_S_13,E_n_S_14,E_n_S_15,E_n_S_16,E_n_S_2,E_n_S_3,E_n_S_4,E_n_S_5,E_n_S_6,E_n_S_7,E_n_S_T_1,E_n_S_T_10,E_n_S_T_11,E_n_S_T_12,E_n_S_T_13,E_n_S_T_14,E_n_S_T_15,E_n_S_T_16,E_n_S_T_2,E_n_S_T_3,E_n_S_T_4,E_n_S_T_5,E_n_S_T_6,E_n_S_T_7,M_Acc,M_Bkg_norm_factor,M_n_Co_1,M_n_Co_10,M_n_Co_11,M_n_Co_12,M_n_Co_13,M_n_Co_14,M_n_Co_15,M_n_Co_16,M_n_Co_2,M_n_Co_3,M_n_Co_4,M_n_Co_5,M_n_Co_6,M_n_Co_7,M_n_S_1,M_n_S_10,M_n_S_11,M_n_S_12,M_n_S_13,M_n_S_14,M_n_S_15,M_n_S_16,M_n_S_2,M_n_S_3,M_n_S_4,M_n_S_5,M_n_S_6,M_n_S_7,T_Acc,T_Bkg_norm_factor,T_n_Co_1,T_n_Co_10,T_n_Co_11,T_n_Co_12,T_n_Co_13,T_n_Co_14,T_n_Co_15,T_n_Co_16,T_n_Co_2,T_n_Co_3,T_n_Co_4,T_n_Co_5,T_n_Co_6,T_n_Co_7,T_n_S_1,T_n_S_10,T_n_S_11,T_n_S_12,T_n_S_13,T_n_S_14,T_n_S_15,T_n_S_16,T_n_S_2,T_n_S_3,T_n_S_4,T_n_S_5,T_n_S_6,T_n_S_7,mu,n_obs_1,n_obs_10,n_obs_11,n_obs_12,n_obs_13,n_obs_14,n_obs_15,n_obs_16,n_obs_2,n_obs_3,n_obs_4,n_obs_5,n_obs_6,n_obs_7,o_Acc,o_bkg_norm,o_err_norm,o_n_Co_1,o_n_Co_10,o_n_Co_11,o_n_Co_12,o_n_Co_13,o_n_Co_14,o_n_Co_15,o_n_Co_16,o_n_Co_2,o_n_Co_3,o_n_Co_4,o_n_Co_5,o_n_Co_6,o_n_Co_7,o_n_S_1,o_n_S_10,o_n_S_11,o_n_S_12,o_n_S_13,o_n_S_14,o_n_S_15,o_n_S_16,o_n_S_2,o_n_S_3,o_n_S_4,o_n_S_5,o_n_S_6,o_n_S_7)
+(E_Bkg_norm_factor,E_n_Co_1,E_n_Co_2,E_n_Co_3,E_n_Co_4,E_n_Co_5,E_n_Co_6,E_n_Co_7,E_n_Co_8,E_n_Co_9,E_n_Co_T_1,E_n_Co_T_2,E_n_Co_T_3,E_n_Co_T_4,E_n_Co_T_5,E_n_Co_T_6,E_n_Co_T_7,E_n_Co_T_8,E_n_Co_T_9,E_n_S_1,E_n_S_2,E_n_S_3,E_n_S_4,E_n_S_5,E_n_S_6,E_n_S_7,E_n_S_8,E_n_S_9,E_n_S_T_1,E_n_S_T_2,E_n_S_T_3,E_n_S_T_4,E_n_S_T_5,E_n_S_T_6,E_n_S_T_7,E_n_S_T_8,E_n_S_T_9,M_Bkg_norm_factor,M_n_Co_1,M_n_Co_2,M_n_Co_3,M_n_Co_4,M_n_Co_5,M_n_Co_6,M_n_Co_7,M_n_Co_8,M_n_Co_9,M_n_S_1,M_n_S_2,M_n_S_3,M_n_S_4,M_n_S_5,M_n_S_6,M_n_S_7,M_n_S_8,M_n_S_9,T_Bkg_norm_factor,T_n_Co_1,T_n_Co_2,T_n_Co_3,T_n_Co_4,T_n_Co_5,T_n_Co_6,T_n_Co_7,T_n_Co_8,T_n_Co_9,T_n_S_1,T_n_S_2,T_n_S_3,T_n_S_4,T_n_S_5,T_n_S_6,T_n_S_7,T_n_S_8,T_n_S_9,mu,n_obs_1,n_obs_2,n_obs_3,n_obs_4,n_obs_5,n_obs_6,n_obs_7,n_obs_8,n_obs_9,o_bkg_norm,o_err_norm,o_n_Co_1,o_n_Co_2,o_n_Co_3,o_n_Co_4,o_n_Co_5,o_n_Co_6,o_n_Co_7,o_n_Co_8,o_n_Co_9,o_n_S_1,o_n_S_2,o_n_S_3,o_n_S_4,o_n_S_5,o_n_S_6,o_n_S_7,o_n_S_8,o_n_S_9)
 
 p.d.f.s
 -------
-RooGaussian::c_Acc[ x=o_Acc mean=T_Acc sigma=E_Acc_T ] = 1
 RooGaussian::c_bkg_norm[ x=o_bkg_norm mean=T_Bkg_norm_factor sigma=o_err_norm ] = 1
 RooGaussian::c_n_Co_1[ x=o_n_Co_1 mean=T_n_Co_1 sigma=E_n_Co_T_1 ] = 1
-RooGaussian::c_n_Co_10[ x=o_n_Co_10 mean=T_n_Co_10 sigma=E_n_Co_T_10 ] = 1
-RooGaussian::c_n_Co_11[ x=o_n_Co_11 mean=T_n_Co_11 sigma=E_n_Co_T_11 ] = 1
-RooGaussian::c_n_Co_12[ x=o_n_Co_12 mean=T_n_Co_12 sigma=E_n_Co_T_12 ] = 1
-RooGaussian::c_n_Co_13[ x=o_n_Co_13 mean=T_n_Co_13 sigma=E_n_Co_T_13 ] = 1
-RooGaussian::c_n_Co_14[ x=o_n_Co_14 mean=T_n_Co_14 sigma=E_n_Co_T_14 ] = 1
-RooGaussian::c_n_Co_15[ x=o_n_Co_15 mean=T_n_Co_15 sigma=E_n_Co_T_15 ] = 1
-RooGaussian::c_n_Co_16[ x=o_n_Co_16 mean=T_n_Co_16 sigma=E_n_Co_T_16 ] = 1
 RooGaussian::c_n_Co_2[ x=o_n_Co_2 mean=T_n_Co_2 sigma=E_n_Co_T_2 ] = 1
 RooGaussian::c_n_Co_3[ x=o_n_Co_3 mean=T_n_Co_3 sigma=E_n_Co_T_3 ] = 1
 RooGaussian::c_n_Co_4[ x=o_n_Co_4 mean=T_n_Co_4 sigma=E_n_Co_T_4 ] = 1
 RooGaussian::c_n_Co_5[ x=o_n_Co_5 mean=T_n_Co_5 sigma=E_n_Co_T_5 ] = 1
 RooGaussian::c_n_Co_6[ x=o_n_Co_6 mean=T_n_Co_6 sigma=E_n_Co_T_6 ] = 1
 RooGaussian::c_n_Co_7[ x=o_n_Co_7 mean=T_n_Co_7 sigma=E_n_Co_T_7 ] = 1
+RooGaussian::c_n_Co_8[ x=o_n_Co_8 mean=T_n_Co_8 sigma=E_n_Co_T_8 ] = 1
+RooGaussian::c_n_Co_9[ x=o_n_Co_9 mean=T_n_Co_9 sigma=E_n_Co_T_9 ] = 1
 RooGaussian::c_n_S_1[ x=o_n_S_1 mean=T_n_S_1 sigma=E_n_S_T_1 ] = 1
-RooGaussian::c_n_S_10[ x=o_n_S_10 mean=T_n_S_10 sigma=E_n_S_T_10 ] = 1
-RooGaussian::c_n_S_11[ x=o_n_S_11 mean=T_n_S_11 sigma=E_n_S_T_11 ] = 1
-RooGaussian::c_n_S_12[ x=o_n_S_12 mean=T_n_S_12 sigma=E_n_S_T_12 ] = 1
-RooGaussian::c_n_S_13[ x=o_n_S_13 mean=T_n_S_13 sigma=E_n_S_T_13 ] = 1
-RooGaussian::c_n_S_14[ x=o_n_S_14 mean=T_n_S_14 sigma=E_n_S_T_14 ] = 1
-RooGaussian::c_n_S_15[ x=o_n_S_15 mean=T_n_S_15 sigma=E_n_S_T_15 ] = 1
-RooGaussian::c_n_S_16[ x=o_n_S_16 mean=T_n_S_16 sigma=E_n_S_T_16 ] = 1
 RooGaussian::c_n_S_2[ x=o_n_S_2 mean=T_n_S_2 sigma=E_n_S_T_2 ] = 1
 RooGaussian::c_n_S_3[ x=o_n_S_3 mean=T_n_S_3 sigma=E_n_S_T_3 ] = 1
 RooGaussian::c_n_S_4[ x=o_n_S_4 mean=T_n_S_4 sigma=E_n_S_T_4 ] = 1
 RooGaussian::c_n_S_5[ x=o_n_S_5 mean=T_n_S_5 sigma=E_n_S_T_5 ] = 1
 RooGaussian::c_n_S_6[ x=o_n_S_6 mean=T_n_S_6 sigma=E_n_S_T_6 ] = 1
 RooGaussian::c_n_S_7[ x=o_n_S_7 mean=T_n_S_7 sigma=E_n_S_T_7 ] = 1
-RooProdPdf::model[ pdf_1 * c_n_Co_1 * c_n_S_1 * pdf_2 * c_n_Co_2 * c_n_S_2 * pdf_3 * c_n_Co_3 * c_n_S_3 * pdf_4 * c_n_Co_4 * c_n_S_4 * pdf_5 * c_n_Co_5 * c_n_S_5 * pdf_6 * c_n_Co_6 * c_n_S_6 * pdf_7 * c_n_Co_7 * c_n_S_7 * pdf_10 * c_n_Co_10 * c_n_S_10 * pdf_11 * c_n_Co_11 * c_n_S_11 * pdf_12 * c_n_Co_12 * c_n_S_12 * pdf_13 * c_n_Co_13 * c_n_S_13 * pdf_14 * c_n_Co_14 * c_n_S_14 * pdf_15 * c_n_Co_15 * c_n_S_15 * pdf_16 * c_n_Co_16 * c_n_S_16 * c_bkg_norm * c_Acc ] = 2.73457e-20
-RooPoisson::pdf_1[ x=n_obs_1 mean=s_plus_b_1 ] = 0.0330012
-RooPoisson::pdf_10[ x=n_obs_10 mean=s_plus_b_10 ] = 0.0478561
-RooPoisson::pdf_11[ x=n_obs_11 mean=s_plus_b_11 ] = 0.0484684
-RooPoisson::pdf_12[ x=n_obs_12 mean=s_plus_b_12 ] = 0.0548162
-RooPoisson::pdf_13[ x=n_obs_13 mean=s_plus_b_13 ] = 0.108201
-RooPoisson::pdf_14[ x=n_obs_14 mean=s_plus_b_14 ] = 0.049936
-RooPoisson::pdf_15[ x=n_obs_15 mean=s_plus_b_15 ] = 0.0264729
-RooPoisson::pdf_16[ x=n_obs_16 mean=s_plus_b_16 ] = 0.0574797
-RooPoisson::pdf_2[ x=n_obs_2 mean=s_plus_b_2 ] = 0.0577854
-RooPoisson::pdf_3[ x=n_obs_3 mean=s_plus_b_3 ] = 0.0185759
-RooPoisson::pdf_4[ x=n_obs_4 mean=s_plus_b_4 ] = 0.0151452
-RooPoisson::pdf_5[ x=n_obs_5 mean=s_plus_b_5 ] = 0.0384974
-RooPoisson::pdf_6[ x=n_obs_6 mean=s_plus_b_6 ] = 0.0290721
-RooPoisson::pdf_7[ x=n_obs_7 mean=s_plus_b_7 ] = 0.0435654
+RooGaussian::c_n_S_8[ x=o_n_S_8 mean=T_n_S_8 sigma=E_n_S_T_8 ] = 1
+RooGaussian::c_n_S_9[ x=o_n_S_9 mean=T_n_S_9 sigma=E_n_S_T_9 ] = 1
+RooProdPdf::model[ pdf_1 * c_n_Co_1 * c_n_S_1 * pdf_2 * c_n_Co_2 * c_n_S_2 * pdf_3 * c_n_Co_3 * c_n_S_3 * pdf_4 * c_n_Co_4 * c_n_S_4 * pdf_5 * c_n_Co_5 * c_n_S_5 * pdf_6 * c_n_Co_6 * c_n_S_6 * pdf_7 * c_n_Co_7 * c_n_S_7 * pdf_8 * c_n_Co_8 * c_n_S_8 * pdf_9 * c_n_Co_9 * c_n_S_9 * c_bkg_norm ] = 1.08364e-15
+RooPoisson::pdf_1[ x=n_obs_1 mean=s_plus_b_1 ] = 0.0328601
+RooPoisson::pdf_2[ x=n_obs_2 mean=s_plus_b_2 ] = 0.057824
+RooPoisson::pdf_3[ x=n_obs_3 mean=s_plus_b_3 ] = 0.0153938
+RooPoisson::pdf_4[ x=n_obs_4 mean=s_plus_b_4 ] = 0.0384675
+RooPoisson::pdf_5[ x=n_obs_5 mean=s_plus_b_5 ] = 0.0299909
+RooPoisson::pdf_6[ x=n_obs_6 mean=s_plus_b_6 ] = 0.00162264
+RooPoisson::pdf_7[ x=n_obs_7 mean=s_plus_b_7 ] = 0.0371837
+RooPoisson::pdf_8[ x=n_obs_8 mean=s_plus_b_8 ] = 0.030209
+RooPoisson::pdf_9[ x=n_obs_9 mean=s_plus_b_9 ] = 0.0176184
 
 functions
 --------
-RooFormulaVar::f_Acc[ actualVars=(T_Acc,E_Acc,M_Acc) formula="T_Acc*E_Acc + M_Acc" ] = 1
 RooFormulaVar::f_Bkg_norm_factor[ actualVars=(T_Bkg_norm_factor,E_Bkg_norm_factor,M_Bkg_norm_factor) formula="T_Bkg_norm_factor*E_Bkg_norm_factor + M_Bkg_norm_factor" ] = 0.034
 RooFormulaVar::f_n_Co_1[ actualVars=(T_n_Co_1,E_n_Co_1,M_n_Co_1) formula="T_n_Co_1*E_n_Co_1 + M_n_Co_1" ] = 2577
-RooFormulaVar::f_n_Co_10[ actualVars=(T_n_Co_10,E_n_Co_10,M_n_Co_10) formula="T_n_Co_10*E_n_Co_10 + M_n_Co_10" ] = 1818
-RooFormulaVar::f_n_Co_11[ actualVars=(T_n_Co_11,E_n_Co_11,M_n_Co_11) formula="T_n_Co_11*E_n_Co_11 + M_n_Co_11" ] = 1975
-RooFormulaVar::f_n_Co_12[ actualVars=(T_n_Co_12,E_n_Co_12,M_n_Co_12) formula="T_n_Co_12*E_n_Co_12 + M_n_Co_12" ] = 94
-RooFormulaVar::f_n_Co_13[ actualVars=(T_n_Co_13,E_n_Co_13,M_n_Co_13) formula="T_n_Co_13*E_n_Co_13 + M_n_Co_13" ] = 318
-RooFormulaVar::f_n_Co_14[ actualVars=(T_n_Co_14,E_n_Co_14,M_n_Co_14) formula="T_n_Co_14*E_n_Co_14 + M_n_Co_14" ] = 657
-RooFormulaVar::f_n_Co_15[ actualVars=(T_n_Co_15,E_n_Co_15,M_n_Co_15) formula="T_n_Co_15*E_n_Co_15 + M_n_Co_15" ] = 1003
-RooFormulaVar::f_n_Co_16[ actualVars=(T_n_Co_16,E_n_Co_16,M_n_Co_16) formula="T_n_Co_16*E_n_Co_16 + M_n_Co_16" ] = 267
 RooFormulaVar::f_n_Co_2[ actualVars=(T_n_Co_2,E_n_Co_2,M_n_Co_2) formula="T_n_Co_2*E_n_Co_2 + M_n_Co_2" ] = 1360
-RooFormulaVar::f_n_Co_3[ actualVars=(T_n_Co_3,E_n_Co_3,M_n_Co_3) formula="T_n_Co_3*E_n_Co_3 + M_n_Co_3" ] = 637
-RooFormulaVar::f_n_Co_4[ actualVars=(T_n_Co_4,E_n_Co_4,M_n_Co_4) formula="T_n_Co_4*E_n_Co_4 + M_n_Co_4" ] = 2188
-RooFormulaVar::f_n_Co_5[ actualVars=(T_n_Co_5,E_n_Co_5,M_n_Co_5) formula="T_n_Co_5*E_n_Co_5 + M_n_Co_5" ] = 2885
-RooFormulaVar::f_n_Co_6[ actualVars=(T_n_Co_6,E_n_Co_6,M_n_Co_6) formula="T_n_Co_6*E_n_Co_6 + M_n_Co_6" ] = 2678
-RooFormulaVar::f_n_Co_7[ actualVars=(T_n_Co_7,E_n_Co_7,M_n_Co_7) formula="T_n_Co_7*E_n_Co_7 + M_n_Co_7" ] = 2008
-RooFormulaVar::f_n_S_1[ actualVars=(T_n_S_1,E_n_S_1,M_n_S_1) formula="T_n_S_1*E_n_S_1 + M_n_S_1" ] = 0.48094
-RooFormulaVar::f_n_S_10[ actualVars=(T_n_S_10,E_n_S_10,M_n_S_10) formula="T_n_S_10*E_n_S_10 + M_n_S_10" ] = 7.33943
-RooFormulaVar::f_n_S_11[ actualVars=(T_n_S_11,E_n_S_11,M_n_S_11) formula="T_n_S_11*E_n_S_11 + M_n_S_11" ] = 0.613313
-RooFormulaVar::f_n_S_12[ actualVars=(T_n_S_12,E_n_S_12,M_n_S_12) formula="T_n_S_12*E_n_S_12 + M_n_S_12" ] = 0.697164
-RooFormulaVar::f_n_S_13[ actualVars=(T_n_S_13,E_n_S_13,M_n_S_13) formula="T_n_S_13*E_n_S_13 + M_n_S_13" ] = 2.37863
-RooFormulaVar::f_n_S_14[ actualVars=(T_n_S_14,E_n_S_14,M_n_S_14) formula="T_n_S_14*E_n_S_14 + M_n_S_14" ] = 0.845513
-RooFormulaVar::f_n_S_15[ actualVars=(T_n_S_15,E_n_S_15,M_n_S_15) formula="T_n_S_15*E_n_S_15 + M_n_S_15" ] = 0.0402637
-RooFormulaVar::f_n_S_16[ actualVars=(T_n_S_16,E_n_S_16,M_n_S_16) formula="T_n_S_16*E_n_S_16 + M_n_S_16" ] = 0.236249
-RooFormulaVar::f_n_S_2[ actualVars=(T_n_S_2,E_n_S_2,M_n_S_2) formula="T_n_S_2*E_n_S_2 + M_n_S_2" ] = 1.46493
-RooFormulaVar::f_n_S_3[ actualVars=(T_n_S_3,E_n_S_3,M_n_S_3) formula="T_n_S_3*E_n_S_3 + M_n_S_3" ] = 0.531056
-RooFormulaVar::f_n_S_4[ actualVars=(T_n_S_4,E_n_S_4,M_n_S_4) formula="T_n_S_4*E_n_S_4 + M_n_S_4" ] = 0.812786
-RooFormulaVar::f_n_S_5[ actualVars=(T_n_S_5,E_n_S_5,M_n_S_5) formula="T_n_S_5*E_n_S_5 + M_n_S_5" ] = 8.39848
-RooFormulaVar::f_n_S_6[ actualVars=(T_n_S_6,E_n_S_6,M_n_S_6) formula="T_n_S_6*E_n_S_6 + M_n_S_6" ] = 10.2739
-RooFormulaVar::f_n_S_7[ actualVars=(T_n_S_7,E_n_S_7,M_n_S_7) formula="T_n_S_7*E_n_S_7 + M_n_S_7" ] = 1.61821
-RooFormulaVar::s_plus_b_1[ actualVars=(mu,f_n_S_1,f_Acc,f_n_Co_1,f_Bkg_norm_factor) formula="mu*f_Acc*f_n_S_1 + f_n_Co_1*f_Bkg_norm_factor" ] = 88.0989
-RooFormulaVar::s_plus_b_10[ actualVars=(mu,f_n_S_10,f_Acc,f_n_Co_10,f_Bkg_norm_factor) formula="mu*f_Acc*f_n_S_10 + f_n_Co_10*f_Bkg_norm_factor" ] = 69.1514
-RooFormulaVar::s_plus_b_11[ actualVars=(mu,f_n_S_11,f_Acc,f_n_Co_11,f_Bkg_norm_factor) formula="mu*f_Acc*f_n_S_11 + f_n_Co_11*f_Bkg_norm_factor" ] = 67.7633
-RooFormulaVar::s_plus_b_12[ actualVars=(mu,f_n_S_12,f_Acc,f_n_Co_12,f_Bkg_norm_factor) formula="mu*f_Acc*f_n_S_12 + f_n_Co_12*f_Bkg_norm_factor" ] = 3.89316
-RooFormulaVar::s_plus_b_13[ actualVars=(mu,f_n_S_13,f_Acc,f_n_Co_13,f_Bkg_norm_factor) formula="mu*f_Acc*f_n_S_13 + f_n_Co_13*f_Bkg_norm_factor" ] = 13.1906
-RooFormulaVar::s_plus_b_14[ actualVars=(mu,f_n_S_14,f_Acc,f_n_Co_14,f_Bkg_norm_factor) formula="mu*f_Acc*f_n_S_14 + f_n_Co_14*f_Bkg_norm_factor" ] = 23.1835
-RooFormulaVar::s_plus_b_15[ actualVars=(mu,f_n_S_15,f_Acc,f_n_Co_15,f_Bkg_norm_factor) formula="mu*f_Acc*f_n_S_15 + f_n_Co_15*f_Bkg_norm_factor" ] = 34.1423
-RooFormulaVar::s_plus_b_16[ actualVars=(mu,f_n_S_16,f_Acc,f_n_Co_16,f_Bkg_norm_factor) formula="mu*f_Acc*f_n_S_16 + f_n_Co_16*f_Bkg_norm_factor" ] = 9.31425
-RooFormulaVar::s_plus_b_2[ actualVars=(mu,f_n_S_2,f_Acc,f_n_Co_2,f_Bkg_norm_factor) formula="mu*f_Acc*f_n_S_2 + f_n_Co_2*f_Bkg_norm_factor" ] = 47.7049
-RooFormulaVar::s_plus_b_3[ actualVars=(mu,f_n_S_3,f_Acc,f_n_Co_3,f_Bkg_norm_factor) formula="mu*f_Acc*f_n_S_3 + f_n_Co_3*f_Bkg_norm_factor" ] = 22.1891
-RooFormulaVar::s_plus_b_4[ actualVars=(mu,f_n_S_4,f_Acc,f_n_Co_4,f_Bkg_norm_factor) formula="mu*f_Acc*f_n_S_4 + f_n_Co_4*f_Bkg_norm_factor" ] = 75.2048
-RooFormulaVar::s_plus_b_5[ actualVars=(mu,f_n_S_5,f_Acc,f_n_Co_5,f_Bkg_norm_factor) formula="mu*f_Acc*f_n_S_5 + f_n_Co_5*f_Bkg_norm_factor" ] = 106.488
-RooFormulaVar::s_plus_b_6[ actualVars=(mu,f_n_S_6,f_Acc,f_n_Co_6,f_Bkg_norm_factor) formula="mu*f_Acc*f_n_S_6 + f_n_Co_6*f_Bkg_norm_factor" ] = 101.326
-RooFormulaVar::s_plus_b_7[ actualVars=(mu,f_n_S_7,f_Acc,f_n_Co_7,f_Bkg_norm_factor) formula="mu*f_Acc*f_n_S_7 + f_n_Co_7*f_Bkg_norm_factor" ] = 69.8902
+RooFormulaVar::f_n_Co_3[ actualVars=(T_n_Co_3,E_n_Co_3,M_n_Co_3) formula="T_n_Co_3*E_n_Co_3 + M_n_Co_3" ] = 2188
+RooFormulaVar::f_n_Co_4[ actualVars=(T_n_Co_4,E_n_Co_4,M_n_Co_4) formula="T_n_Co_4*E_n_Co_4 + M_n_Co_4" ] = 2885
+RooFormulaVar::f_n_Co_5[ actualVars=(T_n_Co_5,E_n_Co_5,M_n_Co_5) formula="T_n_Co_5*E_n_Co_5 + M_n_Co_5" ] = 2678
+RooFormulaVar::f_n_Co_6[ actualVars=(T_n_Co_6,E_n_Co_6,M_n_Co_6) formula="T_n_Co_6*E_n_Co_6 + M_n_Co_6" ] = 3057
+RooFormulaVar::f_n_Co_7[ actualVars=(T_n_Co_7,E_n_Co_7,M_n_Co_7) formula="T_n_Co_7*E_n_Co_7 + M_n_Co_7" ] = 2645
+RooFormulaVar::f_n_Co_8[ actualVars=(T_n_Co_8,E_n_Co_8,M_n_Co_8) formula="T_n_Co_8*E_n_Co_8 + M_n_Co_8" ] = 2978
+RooFormulaVar::f_n_Co_9[ actualVars=(T_n_Co_9,E_n_Co_9,M_n_Co_9) formula="T_n_Co_9*E_n_Co_9 + M_n_Co_9" ] = 1857
+RooFormulaVar::f_n_S_1[ actualVars=(T_n_S_1,E_n_S_1,M_n_S_1) formula="T_n_S_1*E_n_S_1 + M_n_S_1" ] = 0.533927
+RooFormulaVar::f_n_S_2[ actualVars=(T_n_S_2,E_n_S_2,M_n_S_2) formula="T_n_S_2*E_n_S_2 + M_n_S_2" ] = 1.41824
+RooFormulaVar::f_n_S_3[ actualVars=(T_n_S_3,E_n_S_3,M_n_S_3) formula="T_n_S_3*E_n_S_3 + M_n_S_3" ] = 0.90888
+RooFormulaVar::f_n_S_4[ actualVars=(T_n_S_4,E_n_S_4,M_n_S_4) formula="T_n_S_4*E_n_S_4 + M_n_S_4" ] = 8.45307
+RooFormulaVar::f_n_S_5[ actualVars=(T_n_S_5,E_n_S_5,M_n_S_5) formula="T_n_S_5*E_n_S_5 + M_n_S_5" ] = 9.88695
+RooFormulaVar::f_n_S_6[ actualVars=(T_n_S_6,E_n_S_6,M_n_S_6) formula="T_n_S_6*E_n_S_6 + M_n_S_6" ] = 19.1257
+RooFormulaVar::f_n_S_7[ actualVars=(T_n_S_7,E_n_S_7,M_n_S_7) formula="T_n_S_7*E_n_S_7 + M_n_S_7" ] = 2.08165
+RooFormulaVar::f_n_S_8[ actualVars=(T_n_S_8,E_n_S_8,M_n_S_8) formula="T_n_S_8*E_n_S_8 + M_n_S_8" ] = 0.757397
+RooFormulaVar::f_n_S_9[ actualVars=(T_n_S_9,E_n_S_9,M_n_S_9) formula="T_n_S_9*E_n_S_9 + M_n_S_9" ] = 6.83423
+RooFormulaVar::s_plus_b_1[ actualVars=(mu,f_n_S_1,f_n_Co_1,f_Bkg_norm_factor) formula="mu*f_n_S_1 + f_n_Co_1*f_Bkg_norm_factor" ] = 88.1519
+RooFormulaVar::s_plus_b_2[ actualVars=(mu,f_n_S_2,f_n_Co_2,f_Bkg_norm_factor) formula="mu*f_n_S_2 + f_n_Co_2*f_Bkg_norm_factor" ] = 47.6582
+RooFormulaVar::s_plus_b_3[ actualVars=(mu,f_n_S_3,f_n_Co_3,f_Bkg_norm_factor) formula="mu*f_n_S_3 + f_n_Co_3*f_Bkg_norm_factor" ] = 75.3009
+RooFormulaVar::s_plus_b_4[ actualVars=(mu,f_n_S_4,f_n_Co_4,f_Bkg_norm_factor) formula="mu*f_n_S_4 + f_n_Co_4*f_Bkg_norm_factor" ] = 106.543
+RooFormulaVar::s_plus_b_5[ actualVars=(mu,f_n_S_5,f_n_Co_5,f_Bkg_norm_factor) formula="mu*f_n_S_5 + f_n_Co_5*f_Bkg_norm_factor" ] = 100.939
+RooFormulaVar::s_plus_b_6[ actualVars=(mu,f_n_S_6,f_n_Co_6,f_Bkg_norm_factor) formula="mu*f_n_S_6 + f_n_Co_6*f_Bkg_norm_factor" ] = 123.064
+RooFormulaVar::s_plus_b_7[ actualVars=(mu,f_n_S_7,f_n_Co_7,f_Bkg_norm_factor) formula="mu*f_n_S_7 + f_n_Co_7*f_Bkg_norm_factor" ] = 92.0116
+RooFormulaVar::s_plus_b_8[ actualVars=(mu,f_n_S_8,f_n_Co_8,f_Bkg_norm_factor) formula="mu*f_n_S_8 + f_n_Co_8*f_Bkg_norm_factor" ] = 102.009
+RooFormulaVar::s_plus_b_9[ actualVars=(mu,f_n_S_9,f_n_Co_9,f_Bkg_norm_factor) formula="mu*f_n_S_9 + f_n_Co_9*f_Bkg_norm_factor" ] = 69.9722
 
 parameter snapshots
 -------------------
@@ -112,9 +80,9 @@ ModelConfig__snapshot = (mu=1)
 
 named sets
 ----------
-ModelConfig_GlobalObservables:(o_n_Co_1,o_n_S_1,o_n_Co_2,o_n_S_2,o_n_Co_3,o_n_S_3,o_n_Co_4,o_n_S_4,o_n_Co_5,o_n_S_5,o_n_Co_6,o_n_S_6,o_n_Co_7,o_n_S_7,o_n_Co_10,o_n_S_10,o_n_Co_11,o_n_S_11,o_n_Co_12,o_n_S_12,o_n_Co_13,o_n_S_13,o_n_Co_14,o_n_S_14,o_n_Co_15,o_n_S_15,o_n_Co_16,o_n_S_16,o_bkg_norm,o_Acc)
-ModelConfig_NuisParams:(T_n_Co_1,T_n_S_1,T_n_Co_2,T_n_S_2,T_n_Co_3,T_n_S_3,T_n_Co_4,T_n_S_4,T_n_Co_5,T_n_S_5,T_n_Co_6,T_n_S_6,T_n_Co_7,T_n_S_7,T_n_Co_10,T_n_S_10,T_n_Co_11,T_n_S_11,T_n_Co_12,T_n_S_12,T_n_Co_13,T_n_S_13,T_n_Co_14,T_n_S_14,T_n_Co_15,T_n_S_15,T_n_Co_16,T_n_S_16,T_Bkg_norm_factor,T_Acc)
-ModelConfig_Observables:(n_obs_1,n_obs_2,n_obs_3,n_obs_4,n_obs_5,n_obs_6,n_obs_7,n_obs_10,n_obs_11,n_obs_12,n_obs_13,n_obs_14,n_obs_15,n_obs_16)
+ModelConfig_GlobalObservables:(o_n_Co_1,o_n_S_1,o_n_Co_2,o_n_S_2,o_n_Co_3,o_n_S_3,o_n_Co_4,o_n_S_4,o_n_Co_5,o_n_S_5,o_n_Co_6,o_n_S_6,o_n_Co_7,o_n_S_7,o_n_Co_8,o_n_S_8,o_n_Co_9,o_n_S_9,o_bkg_norm)
+ModelConfig_NuisParams:(T_n_Co_1,T_n_S_1,T_n_Co_2,T_n_S_2,T_n_Co_3,T_n_S_3,T_n_Co_4,T_n_S_4,T_n_Co_5,T_n_S_5,T_n_Co_6,T_n_S_6,T_n_Co_7,T_n_S_7,T_n_Co_8,T_n_S_8,T_n_Co_9,T_n_S_9,T_Bkg_norm_factor)
+ModelConfig_Observables:(n_obs_1,n_obs_2,n_obs_3,n_obs_4,n_obs_5,n_obs_6,n_obs_7,n_obs_8,n_obs_9)
 ModelConfig_POI:(mu)
 ModelConfig__snapshot:(mu)
 
@@ -128,43 +96,32 @@ AsymptoticCalculator::EvaluateNLL  ........ using Minuit / Migrad with strategy 
  **********
  PARAMETER DEFINITIONS:
     NO.   NAME         VALUE      STEP SIZE      LIMITS
-     1 T_Acc        0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-     2 T_Bkg_norm_factor   0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-     3 T_n_Co_1     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-     4 T_n_Co_10    0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-     5 T_n_Co_11    0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-     6 T_n_Co_12    0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-     7 T_n_Co_13    0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-     8 T_n_Co_14    0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-     9 T_n_Co_15    0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    10 T_n_Co_16    0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    11 T_n_Co_2     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    12 T_n_Co_3     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    13 T_n_Co_4     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    14 T_n_Co_5     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    15 T_n_Co_6     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    16 T_n_Co_7     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    17 T_n_S_1      0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    18 T_n_S_10     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    19 T_n_S_11     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    20 T_n_S_12     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    21 T_n_S_13     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    22 T_n_S_14     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    23 T_n_S_15     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    24 T_n_S_16     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    25 T_n_S_2      0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    26 T_n_S_3      0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    27 T_n_S_4      0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    28 T_n_S_5      0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    29 T_n_S_6      0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    30 T_n_S_7      0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
-    31 mu           0.00000e+00  5.00000e-01    0.00000e+00  5.00000e+00
+     1 T_Bkg_norm_factor   0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+     2 T_n_Co_1     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+     3 T_n_Co_2     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+     4 T_n_Co_3     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+     5 T_n_Co_4     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+     6 T_n_Co_5     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+     7 T_n_Co_6     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+     8 T_n_Co_7     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+     9 T_n_Co_8     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+    10 T_n_Co_9     0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+    11 T_n_S_1      0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+    12 T_n_S_2      0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+    13 T_n_S_3      0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+    14 T_n_S_4      0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+    15 T_n_S_5      0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+    16 T_n_S_6      0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+    17 T_n_S_7      0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+    18 T_n_S_8      0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+    19 T_n_S_9      0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+    20 mu           0.00000e+00  5.00000e-01    0.00000e+00  5.00000e+00
  MINUIT WARNING IN PARAM DEF
  ============== STARTING VALUE IS AT LIMIT.
  MINUIT WARNING IN PARAMETR
- ============== VARIABLE31 IS AT ITS LOWER ALLOWED LIMIT.
+ ============== VARIABLE20 IS AT ITS LOWER ALLOWED LIMIT.
  MINUIT WARNING IN PARAMETR
- ============== VARIABLE31 BROUGHT BACK INSIDE LIMITS.
+ ============== VARIABLE20 BROUGHT BACK INSIDE LIMITS.
  **********
  **    3 **SET ERR         0.5
  **********
@@ -175,50 +132,39 @@ AsymptoticCalculator::EvaluateNLL  ........ using Minuit / Migrad with strategy 
  **    5 **SET STR           1
  **********
  **********
- **    6 **MIGRAD    1.55e+04           1
+ **    6 **MIGRAD       1e+04           1
  **********
  MINUIT WARNING IN MIGrad    
- ============== VARIABLE31 IS AT ITS LOWER ALLOWED LIMIT.
+ ============== VARIABLE20 IS AT ITS LOWER ALLOWED LIMIT.
  MIGRAD MINIMIZATION HAS CONVERGED.
  MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
- FCN=72.2469 FROM MIGRAD    STATUS=CONVERGED     977 CALLS         978 TOTAL
-                     EDM=4.04054e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ FCN=47.7437 FROM MIGRAD    STATUS=CONVERGED     474 CALLS         475 TOTAL
+                     EDM=3.01116e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  T_Acc       -2.89660e-04   9.93363e-01   1.17579e-03  -1.81541e-03
-   2  T_Bkg_norm_factor   1.71054e-01   6.82823e-01   6.45609e-04  -8.57363e-03
-   3  T_n_Co_1    -1.49014e-01   9.80340e-01   1.16039e-03  -2.95607e-03
-   4  T_n_Co_10    2.12184e-02   9.81694e-01   1.15944e-03  -1.80631e-03
-   5  T_n_Co_11   -2.64653e-02   9.78729e-01   1.15867e-03  -1.87642e-03
-   6  T_n_Co_12    2.88100e-01   9.69865e-01   1.14921e-03   2.69530e-03
-   7  T_n_Co_13   -1.91764e-02   9.81432e-01   1.16132e-03  -1.22255e-03
-   8  T_n_Co_14   -1.89413e-01   9.80950e-01   1.16356e-03  -2.30354e-03
-   9  T_n_Co_15    2.28305e-01   9.74575e-01   1.15579e-03   9.69894e-04
-  10  T_n_Co_16    2.12341e-01   9.71685e-01   1.15297e-03   1.49865e-03
-  11  T_n_Co_2    -1.60734e-02   9.78184e-01   1.15887e-03  -1.52579e-03
-  12  T_n_Co_3    -3.14218e-01   9.83203e-01   1.16779e-03  -3.64217e-03
-  13  T_n_Co_4     2.52547e-01   9.76118e-01   1.15719e-03   6.25216e-04
-  14  T_n_Co_5     1.19016e-02   9.80908e-01   1.15919e-03  -2.16940e-03
-  15  T_n_Co_6    -9.41188e-02   9.83245e-01   1.16085e-03  -2.93764e-03
-  16  T_n_Co_7     6.43097e-02   9.77686e-01   1.15788e-03  -1.28077e-03
-  17  T_n_S_1     -5.77886e-04   9.93347e-01   1.17794e-03   2.83024e-05
-  18  T_n_S_10     3.93597e-04   9.93343e-01   1.17793e-03   7.26355e-06
-  19  T_n_S_11    -1.35548e-04   9.93347e-01   1.17794e-03  -2.44747e-05
-  20  T_n_S_12     5.72332e-03   9.93350e-01   1.17792e-03  -1.01695e-03
-  21  T_n_S_13    -4.19120e-04   9.93341e-01   1.17793e-03   1.35789e-04
-  22  T_n_S_14    -1.75741e-03   9.93348e-01   1.17794e-03   1.36454e-04
-  23  T_n_S_15     3.45540e-04   9.93347e-01   1.17794e-03  -6.48078e-05
-  24  T_n_S_16     1.59849e-03   9.93347e-01   1.17794e-03  -2.96292e-04
-  25  T_n_S_2     -1.57008e-04   9.93345e-01   1.17794e-03  -2.65237e-05
-  26  T_n_S_3     -2.57554e-03   9.93350e-01   1.17794e-03   1.65923e-04
-  27  T_n_S_4      1.36082e-03   9.93348e-01   1.17794e-03  -2.48898e-04
-  28  T_n_S_5      1.89191e-04   9.93344e-01   1.17793e-03  -2.44410e-05
-  29  T_n_S_6     -1.63480e-03   9.93348e-01   1.17793e-03   2.12701e-04
-  30  T_n_S_7      5.06265e-04   9.93346e-01   1.17794e-03  -1.20251e-04
-  31  mu           6.19592e-01   6.67644e-01   1.90099e-03  -3.90374e-03
+   1  T_Bkg_norm_factor   1.31343e-01   5.56459e-01   5.05284e-04  -6.24218e-03
+   2  T_n_Co_1    -2.79077e-01   9.27518e-01   8.90075e-04   3.39635e-03
+   3  T_n_Co_2     1.74835e-02   9.45901e-01   9.10681e-04  -3.09625e-04
+   4  T_n_Co_3     5.01490e-01   9.22721e-01   8.90395e-04  -4.31124e-03
+   5  T_n_Co_4     2.25295e-01   9.15150e-01   8.76532e-04  -2.72285e-03
+   6  T_n_Co_5     4.65980e-02   9.21023e-01   8.82108e-04  -7.67347e-04
+   7  T_n_Co_6    -3.22405e-01   9.19851e-01   8.81049e-04   4.06586e-03
+   8  T_n_Co_7    -1.37154e-01   9.24230e-01   8.85576e-04   1.56241e-03
+   9  T_n_Co_8     2.53068e-01   9.13303e-01   8.74602e-04  -2.98744e-03
+  10  T_n_Co_9    -2.30701e-01   9.40269e-01   9.04667e-04   2.67646e-03
+  11  T_n_S_1      1.08486e-08   9.93347e-01   9.59258e-04   5.44060e-08
+  12  T_n_S_2     -2.92733e-09   9.93347e-01   9.59258e-04  -1.47033e-08
+  13  T_n_S_3     -4.70407e-08   9.93347e-01   9.59258e-04  -2.35512e-07
+  14  T_n_S_4     -6.34628e-08   9.93347e-01   9.59258e-04  -3.17603e-07
+  15  T_n_S_5     -1.55169e-08   9.93347e-01   9.59258e-04  -7.75906e-08
+  16  T_n_S_6      5.29651e-08   9.93347e-01   9.59258e-04   2.64845e-07
+  17  T_n_S_7      1.43308e-08   9.93347e-01   9.59258e-04   7.13685e-08
+  18  T_n_S_8     -1.72256e-08   9.93347e-01   9.59258e-04  -8.59792e-08
+  19  T_n_S_9      5.30542e-08   9.93347e-01   9.59258e-04   2.65438e-07
+  20  mu           6.04725e-11   3.89072e-01   2.73446e-03** at limit **
                                ERR DEF= 0.5
-AsymptoticCalculator::EvaluateNLL -  value = 72.2469	fit time : Real time 0:00:00, CP time 0.130
-[#0] PROGRESS:Eval -- Best fitted POI value = 0.619592 +/- 0.667644
+AsymptoticCalculator::EvaluateNLL -  value = 47.7437	fit time : Real time 0:00:00, CP time 0.120
+[#0] PROGRESS:Eval -- Best fitted POI value = 6.04725e-11 +/- 0.389072
 [#0] PROGRESS:Eval -- AsymptoticCalculator: Building Asimov data Set
 [#1] INFO:InputArguments -- AsymptoticCalculator: Asimov data will be generated using fitted nuisance parameter values
 MakeAsimov: Setting poi mu to a constant value = 0
@@ -231,36 +177,25 @@ MakeAsimov: doing a conditional fit for finding best nuisance values
  **********
  PARAMETER DEFINITIONS:
     NO.   NAME         VALUE      STEP SIZE      LIMITS
-     1 T_Acc       -2.89660e-04  9.93363e-01   -5.00000e+00  5.00000e+00
-     2 T_Bkg_norm_factor   1.71054e-01  6.82823e-01   -5.00000e+00  5.00000e+00
-     3 T_n_Co_1    -1.49014e-01  9.80340e-01   -5.00000e+00  5.00000e+00
-     4 T_n_Co_10    2.12184e-02  9.81694e-01   -5.00000e+00  5.00000e+00
-     5 T_n_Co_11   -2.64653e-02  9.78729e-01   -5.00000e+00  5.00000e+00
-     6 T_n_Co_12    2.88100e-01  9.69865e-01   -5.00000e+00  5.00000e+00
-     7 T_n_Co_13   -1.91764e-02  9.81432e-01   -5.00000e+00  5.00000e+00
-     8 T_n_Co_14   -1.89413e-01  9.80950e-01   -5.00000e+00  5.00000e+00
-     9 T_n_Co_15    2.28305e-01  9.74575e-01   -5.00000e+00  5.00000e+00
-    10 T_n_Co_16    2.12341e-01  9.71685e-01   -5.00000e+00  5.00000e+00
-    11 T_n_Co_2    -1.60734e-02  9.78184e-01   -5.00000e+00  5.00000e+00
-    12 T_n_Co_3    -3.14218e-01  9.83203e-01   -5.00000e+00  5.00000e+00
-    13 T_n_Co_4     2.52547e-01  9.76118e-01   -5.00000e+00  5.00000e+00
-    14 T_n_Co_5     1.19016e-02  9.80908e-01   -5.00000e+00  5.00000e+00
-    15 T_n_Co_6    -9.41188e-02  9.83245e-01   -5.00000e+00  5.00000e+00
-    16 T_n_Co_7     6.43097e-02  9.77686e-01   -5.00000e+00  5.00000e+00
-    17 T_n_S_1     -5.77886e-04  9.93347e-01   -5.00000e+00  5.00000e+00
-    18 T_n_S_10     3.93597e-04  9.93343e-01   -5.00000e+00  5.00000e+00
-    19 T_n_S_11    -1.35548e-04  9.93347e-01   -5.00000e+00  5.00000e+00
-    20 T_n_S_12     5.72332e-03  9.93350e-01   -5.00000e+00  5.00000e+00
-    21 T_n_S_13    -4.19120e-04  9.93341e-01   -5.00000e+00  5.00000e+00
-    22 T_n_S_14    -1.75741e-03  9.93348e-01   -5.00000e+00  5.00000e+00
-    23 T_n_S_15     3.45540e-04  9.93347e-01   -5.00000e+00  5.00000e+00
-    24 T_n_S_16     1.59849e-03  9.93347e-01   -5.00000e+00  5.00000e+00
-    25 T_n_S_2     -1.57008e-04  9.93345e-01   -5.00000e+00  5.00000e+00
-    26 T_n_S_3     -2.57554e-03  9.93350e-01   -5.00000e+00  5.00000e+00
-    27 T_n_S_4      1.36082e-03  9.93348e-01   -5.00000e+00  5.00000e+00
-    28 T_n_S_5      1.89191e-04  9.93344e-01   -5.00000e+00  5.00000e+00
-    29 T_n_S_6     -1.63480e-03  9.93348e-01   -5.00000e+00  5.00000e+00
-    30 T_n_S_7      5.06265e-04  9.93346e-01   -5.00000e+00  5.00000e+00
+     1 T_Bkg_norm_factor   1.31343e-01  5.56459e-01   -5.00000e+00  5.00000e+00
+     2 T_n_Co_1    -2.79077e-01  9.27518e-01   -5.00000e+00  5.00000e+00
+     3 T_n_Co_2     1.74835e-02  9.45901e-01   -5.00000e+00  5.00000e+00
+     4 T_n_Co_3     5.01490e-01  9.22721e-01   -5.00000e+00  5.00000e+00
+     5 T_n_Co_4     2.25295e-01  9.15150e-01   -5.00000e+00  5.00000e+00
+     6 T_n_Co_5     4.65980e-02  9.21023e-01   -5.00000e+00  5.00000e+00
+     7 T_n_Co_6    -3.22405e-01  9.19851e-01   -5.00000e+00  5.00000e+00
+     8 T_n_Co_7    -1.37154e-01  9.24230e-01   -5.00000e+00  5.00000e+00
+     9 T_n_Co_8     2.53068e-01  9.13303e-01   -5.00000e+00  5.00000e+00
+    10 T_n_Co_9    -2.30701e-01  9.40269e-01   -5.00000e+00  5.00000e+00
+    11 T_n_S_1      1.08486e-08  9.93347e-01   -5.00000e+00  5.00000e+00
+    12 T_n_S_2     -2.92733e-09  9.93347e-01   -5.00000e+00  5.00000e+00
+    13 T_n_S_3     -4.70407e-08  9.93347e-01   -5.00000e+00  5.00000e+00
+    14 T_n_S_4     -6.34628e-08  9.93347e-01   -5.00000e+00  5.00000e+00
+    15 T_n_S_5     -1.55169e-08  9.93347e-01   -5.00000e+00  5.00000e+00
+    16 T_n_S_6      5.29651e-08  9.93347e-01   -5.00000e+00  5.00000e+00
+    17 T_n_S_7      1.43308e-08  9.93347e-01   -5.00000e+00  5.00000e+00
+    18 T_n_S_8     -1.72256e-08  9.93347e-01   -5.00000e+00  5.00000e+00
+    19 T_n_S_9      5.30542e-08  9.93347e-01   -5.00000e+00  5.00000e+00
  **********
  **    3 **SET ERR         0.5
  **********
@@ -271,48 +206,37 @@ MakeAsimov: doing a conditional fit for finding best nuisance values
  **    5 **SET STR           1
  **********
  **********
- **    6 **MIGRAD     1.5e+04           1
+ **    6 **MIGRAD        9500           1
  **********
  MIGRAD MINIMIZATION HAS CONVERGED.
  MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
- FCN=72.666 FROM MIGRAD    STATUS=CONVERGED     799 CALLS         800 TOTAL
-                     EDM=2.23652e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ FCN=47.7437 FROM MIGRAD    STATUS=CONVERGED     363 CALLS         364 TOTAL
+                     EDM=5.51231e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  T_Acc        5.20033e-06   9.93347e-01   1.18133e-03   2.60016e-05
-   2  T_Bkg_norm_factor   5.42945e-01   5.50470e-01   6.47745e-04  -3.41055e-02
-   3  T_n_Co_1    -1.80688e-01   9.79649e-01   1.16344e-03  -4.47349e-03
-   4  T_n_Co_10    9.63645e-02   9.76614e-01   1.16041e-03   5.66005e-03
-   5  T_n_Co_11   -5.06340e-02   9.78213e-01   1.16176e-03  -3.60203e-03
-   6  T_n_Co_12    3.57428e-01   9.61078e-01   1.14554e-03   6.35564e-03
-   7  T_n_Co_13    4.65979e-02   9.75627e-01   1.15988e-03   5.48083e-03
-   8  T_n_Co_14   -1.91989e-01   9.80360e-01   1.16588e-03  -1.06484e-03
-   9  T_n_Co_15    2.05815e-01   9.74240e-01   1.15901e-03  -3.06933e-03
-  10  T_n_Co_16    2.11984e-01   9.71018e-01   1.15551e-03  -5.27888e-04
-  11  T_n_Co_2    -1.90644e-02   9.77587e-01   1.16144e-03  -1.43147e-03
-  12  T_n_Co_3    -3.23954e-01   9.82819e-01   1.17030e-03  -1.68882e-03
-  13  T_n_Co_4     2.30214e-01   9.75602e-01   1.16034e-03  -3.47992e-03
-  14  T_n_Co_5     6.85504e-02   9.77652e-01   1.16084e-03   3.59505e-03
-  15  T_n_Co_6    -1.69057e-02   9.78260e-01   1.16137e-03   5.29120e-03
-  16  T_n_Co_7     5.44181e-02   9.77172e-01   1.16074e-03  -2.28425e-03
-  17  T_n_S_1      1.03749e-05   9.93347e-01   1.18133e-03   5.18746e-05
-  18  T_n_S_10    -7.06633e-06   9.93347e-01   1.18133e-03  -3.53317e-05
-  19  T_n_S_11     2.43353e-06   9.93347e-01   1.18133e-03   1.21676e-05
-  20  T_n_S_12    -1.02752e-04   9.93347e-01   1.18133e-03  -5.13760e-04
-  21  T_n_S_13     7.52455e-06   9.93347e-01   1.18133e-03   3.76228e-05
-  22  T_n_S_14     3.15513e-05   9.93347e-01   1.18133e-03   1.57756e-04
-  23  T_n_S_15    -6.20356e-06   9.93347e-01   1.18133e-03  -3.10178e-05
-  24  T_n_S_16    -2.86981e-05   9.93347e-01   1.18133e-03  -1.43491e-04
-  25  T_n_S_2      2.81880e-06   9.93347e-01   1.18133e-03   1.40940e-05
-  26  T_n_S_3      4.62392e-05   9.93347e-01   1.18133e-03   2.31196e-04
-  27  T_n_S_4     -2.44311e-05   9.93347e-01   1.18133e-03  -1.22155e-04
-  28  T_n_S_5     -3.39659e-06   9.93347e-01   1.18133e-03  -1.69829e-05
-  29  T_n_S_6      2.93500e-05   9.93347e-01   1.18133e-03   1.46750e-04
-  30  T_n_S_7     -9.08909e-06   9.93347e-01   1.18133e-03  -4.54455e-05
+   1  T_Bkg_norm_factor   1.31689e-01   5.56466e-01   5.05521e-04  -1.57000e-04
+   2  T_n_Co_1    -2.79661e-01   9.27517e-01   8.90076e-04   3.97379e-04
+   3  T_n_Co_2     1.75393e-02   9.45901e-01   9.10668e-04   2.28069e-04
+   4  T_n_Co_3     5.02229e-01   9.22732e-01   8.90160e-04   3.43545e-04
+   5  T_n_Co_4     2.25749e-01   9.15155e-01   8.76424e-04   4.41596e-04
+   6  T_n_Co_5     4.67279e-02   9.21024e-01   8.82072e-04   4.12787e-04
+   7  T_n_Co_6    -3.23089e-01   9.19850e-01   8.81049e-04   4.63876e-04
+   8  T_n_Co_7    -1.37421e-01   9.24229e-01   8.85575e-04   4.07636e-04
+   9  T_n_Co_8     2.53564e-01   9.13309e-01   8.74478e-04   4.54478e-04
+  10  T_n_Co_9    -2.31176e-01   9.40268e-01   9.04667e-04   2.97103e-04
+  11  T_n_S_1      5.32907e-15   9.93347e-01   9.59258e-04   0.00000e+00
+  12  T_n_S_2      1.77636e-15   9.93347e-01   9.59258e-04   0.00000e+00
+  13  T_n_S_3      2.58460e-13   9.93347e-01   9.59258e-04   3.70361e-12
+  14  T_n_S_4     -8.16236e-13   9.93347e-01   9.59258e-04  -1.85180e-11
+  15  T_n_S_5     -2.62901e-13   9.93347e-01   9.59258e-04   0.00000e+00
+  16  T_n_S_6      6.11955e-13   9.93347e-01   9.59258e-04   7.40721e-12
+  17  T_n_S_7     -6.73239e-13   9.93347e-01   9.59258e-04  -3.70361e-12
+  18  T_n_S_8      5.82645e-13   9.93347e-01   9.59258e-04   3.70361e-12
+  19  T_n_S_9      7.81597e-13   9.93347e-01   9.59258e-04   3.70361e-12
                                ERR DEF= 0.5
-fit time Real time 0:00:00, CP time 0.060
-Generated Asimov data for observables RooArgSet:: = (n_obs_1,n_obs_2,n_obs_3,n_obs_4,n_obs_5,n_obs_6,n_obs_7,n_obs_10,n_obs_11,n_obs_12,n_obs_13,n_obs_14,n_obs_15,n_obs_16)
-Generated Asimov data for global observables RooArgSet:: = (o_n_Co_1,o_n_S_1,o_n_Co_2,o_n_S_2,o_n_Co_3,o_n_S_3,o_n_Co_4,o_n_S_4,o_n_Co_5,o_n_S_5,o_n_Co_6,o_n_S_6,o_n_Co_7,o_n_S_7,o_n_Co_10,o_n_S_10,o_n_Co_11,o_n_S_11,o_n_Co_12,o_n_S_12,o_n_Co_13,o_n_S_13,o_n_Co_14,o_n_S_14,o_n_Co_15,o_n_S_15,o_n_Co_16,o_n_S_16,o_bkg_norm,o_Acc)
+fit time Real time 0:00:00, CP time 0.020
+Generated Asimov data for observables RooArgSet:: = (n_obs_1,n_obs_2,n_obs_3,n_obs_4,n_obs_5,n_obs_6,n_obs_7,n_obs_8,n_obs_9)
+Generated Asimov data for global observables RooArgSet:: = (o_n_Co_1,o_n_S_1,o_n_Co_2,o_n_S_2,o_n_Co_3,o_n_S_3,o_n_Co_4,o_n_S_4,o_n_Co_5,o_n_S_5,o_n_Co_6,o_n_S_6,o_n_Co_7,o_n_S_7,o_n_Co_8,o_n_S_8,o_n_Co_9,o_n_S_9,o_bkg_norm)
 [#0] PROGRESS:Eval -- AsymptoticCalculator: Find  best conditional NLL on ASIMOV data set for given alt POI ( mu ) = 0
 AsymptoticCalculator::EvaluateNLL  ........ using Minuit / Migrad with strategy  1 and tolerance 1
  **********
@@ -323,36 +247,25 @@ AsymptoticCalculator::EvaluateNLL  ........ using Minuit / Migrad with strategy 
  **********
  PARAMETER DEFINITIONS:
     NO.   NAME         VALUE      STEP SIZE      LIMITS
-     1 T_Acc        5.20033e-06  9.93347e-01   -5.00000e+00  5.00000e+00
-     2 T_Bkg_norm_factor   5.42945e-01  5.50470e-01   -5.00000e+00  5.00000e+00
-     3 T_n_Co_1    -1.80688e-01  9.79649e-01   -5.00000e+00  5.00000e+00
-     4 T_n_Co_10    9.63645e-02  9.76614e-01   -5.00000e+00  5.00000e+00
-     5 T_n_Co_11   -5.06340e-02  9.78213e-01   -5.00000e+00  5.00000e+00
-     6 T_n_Co_12    3.57428e-01  9.61078e-01   -5.00000e+00  5.00000e+00
-     7 T_n_Co_13    4.65979e-02  9.75627e-01   -5.00000e+00  5.00000e+00
-     8 T_n_Co_14   -1.91989e-01  9.80360e-01   -5.00000e+00  5.00000e+00
-     9 T_n_Co_15    2.05815e-01  9.74240e-01   -5.00000e+00  5.00000e+00
-    10 T_n_Co_16    2.11984e-01  9.71018e-01   -5.00000e+00  5.00000e+00
-    11 T_n_Co_2    -1.90644e-02  9.77587e-01   -5.00000e+00  5.00000e+00
-    12 T_n_Co_3    -3.23954e-01  9.82819e-01   -5.00000e+00  5.00000e+00
-    13 T_n_Co_4     2.30214e-01  9.75602e-01   -5.00000e+00  5.00000e+00
-    14 T_n_Co_5     6.85504e-02  9.77652e-01   -5.00000e+00  5.00000e+00
-    15 T_n_Co_6    -1.69057e-02  9.78260e-01   -5.00000e+00  5.00000e+00
-    16 T_n_Co_7     5.44181e-02  9.77172e-01   -5.00000e+00  5.00000e+00
-    17 T_n_S_1      1.03749e-05  9.93347e-01   -5.00000e+00  5.00000e+00
-    18 T_n_S_10    -7.06633e-06  9.93347e-01   -5.00000e+00  5.00000e+00
-    19 T_n_S_11     2.43353e-06  9.93347e-01   -5.00000e+00  5.00000e+00
-    20 T_n_S_12    -1.02752e-04  9.93347e-01   -5.00000e+00  5.00000e+00
-    21 T_n_S_13     7.52455e-06  9.93347e-01   -5.00000e+00  5.00000e+00
-    22 T_n_S_14     3.15513e-05  9.93347e-01   -5.00000e+00  5.00000e+00
-    23 T_n_S_15    -6.20356e-06  9.93347e-01   -5.00000e+00  5.00000e+00
-    24 T_n_S_16    -2.86981e-05  9.93347e-01   -5.00000e+00  5.00000e+00
-    25 T_n_S_2      2.81880e-06  9.93347e-01   -5.00000e+00  5.00000e+00
-    26 T_n_S_3      4.62392e-05  9.93347e-01   -5.00000e+00  5.00000e+00
-    27 T_n_S_4     -2.44311e-05  9.93347e-01   -5.00000e+00  5.00000e+00
-    28 T_n_S_5     -3.39659e-06  9.93347e-01   -5.00000e+00  5.00000e+00
-    29 T_n_S_6      2.93500e-05  9.93347e-01   -5.00000e+00  5.00000e+00
-    30 T_n_S_7     -9.08909e-06  9.93347e-01   -5.00000e+00  5.00000e+00
+     1 T_Bkg_norm_factor   1.31689e-01  5.56466e-01   -5.00000e+00  5.00000e+00
+     2 T_n_Co_1    -2.79661e-01  9.27517e-01   -5.00000e+00  5.00000e+00
+     3 T_n_Co_2     1.75393e-02  9.45901e-01   -5.00000e+00  5.00000e+00
+     4 T_n_Co_3     5.02229e-01  9.22732e-01   -5.00000e+00  5.00000e+00
+     5 T_n_Co_4     2.25749e-01  9.15155e-01   -5.00000e+00  5.00000e+00
+     6 T_n_Co_5     4.67279e-02  9.21024e-01   -5.00000e+00  5.00000e+00
+     7 T_n_Co_6    -3.23089e-01  9.19850e-01   -5.00000e+00  5.00000e+00
+     8 T_n_Co_7    -1.37421e-01  9.24229e-01   -5.00000e+00  5.00000e+00
+     9 T_n_Co_8     2.53564e-01  9.13309e-01   -5.00000e+00  5.00000e+00
+    10 T_n_Co_9    -2.31176e-01  9.40268e-01   -5.00000e+00  5.00000e+00
+    11 T_n_S_1      5.32907e-15  9.93347e-01   -5.00000e+00  5.00000e+00
+    12 T_n_S_2      1.77636e-15  9.93347e-01   -5.00000e+00  5.00000e+00
+    13 T_n_S_3      2.58460e-13  9.93347e-01   -5.00000e+00  5.00000e+00
+    14 T_n_S_4     -8.16236e-13  9.93347e-01   -5.00000e+00  5.00000e+00
+    15 T_n_S_5     -2.62901e-13  9.93347e-01   -5.00000e+00  5.00000e+00
+    16 T_n_S_6      6.11955e-13  9.93347e-01   -5.00000e+00  5.00000e+00
+    17 T_n_S_7     -6.73239e-13  9.93347e-01   -5.00000e+00  5.00000e+00
+    18 T_n_S_8      5.82645e-13  9.93347e-01   -5.00000e+00  5.00000e+00
+    19 T_n_S_9      7.81597e-13  9.93347e-01   -5.00000e+00  5.00000e+00
  **********
  **    9 **SET ERR         0.5
  **********
@@ -363,45 +276,35 @@ AsymptoticCalculator::EvaluateNLL  ........ using Minuit / Migrad with strategy 
  **   11 **SET STR           1
  **********
  **********
- **   12 **MIGRAD     1.5e+04           1
+ **   12 **MIGRAD        9500           1
  **********
  MIGRAD MINIMIZATION HAS CONVERGED.
- FCN=65.5974 FROM MIGRAD    STATUS=CONVERGED     711 CALLS         712 TOTAL
-                     EDM=4.31524e-17    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ FCN=45.5854 FROM MIGRAD    STATUS=CONVERGED     392 CALLS         393 TOTAL
+                     EDM=1.77822e-13    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  T_Acc        5.20033e-06   9.93347e-01   0.00000e+00  -3.16412e-11
-   2  T_Bkg_norm_factor   5.42945e-01   5.53118e-01   0.00000e+00  -1.09125e-08
-   3  T_n_Co_1    -1.80688e-01   9.77994e-01  -0.00000e+00   9.65172e-10
-   4  T_n_Co_10    9.63645e-02   9.77662e-01   0.00000e+00  -1.38070e-08
-   5  T_n_Co_11   -5.06340e-02   9.77697e-01  -0.00000e+00   4.89295e-09
-   6  T_n_Co_12    3.57428e-01   9.77190e-01   0.00000e+00  -2.08583e-09
-   7  T_n_Co_13    4.65979e-02   9.76811e-01   0.00000e+00  -9.84973e-09
-   8  T_n_Co_14   -1.91989e-01   9.76831e-01  -0.00000e+00   9.65155e-10
-   9  T_n_Co_15    2.05815e-01   9.77256e-01   0.00000e+00  -2.82371e-08
-  10  T_n_Co_16    2.11984e-01   9.76938e-01   0.00000e+00  -1.28622e-09
-  11  T_n_Co_2    -1.90644e-02   9.77357e-01  -0.00000e+00   4.82873e-10
-  12  T_n_Co_3    -3.23954e-01   9.76713e-01  -0.00000e+00   1.60655e-09
-  13  T_n_Co_4     2.30214e-01   9.77905e-01   0.00000e+00  -3.05148e-08
-  14  T_n_Co_5     6.85504e-02   9.78256e-01   0.00000e+00  -1.01391e-08
-  15  T_n_Co_6    -1.69057e-02   9.78113e-01   0.00000e+00  -4.82872e-10
-  16  T_n_Co_7     5.44181e-02   9.77755e-01   0.00000e+00  -8.43349e-09
-  17  T_n_S_1      1.03749e-05   9.93347e-01   0.00000e+00  -3.79694e-11
-  18  T_n_S_10    -7.06633e-06   9.93347e-01  -0.00000e+00   1.89847e-11
-  19  T_n_S_11     2.43353e-06   9.93347e-01   0.00000e+00  -1.26565e-11
-  20  T_n_S_12    -1.02752e-04   9.93347e-01  -0.00000e+00   3.16412e-11
-  21  T_n_S_13     7.52455e-06   9.93347e-01   0.00000e+00  -3.16412e-11
-  22  T_n_S_14     3.15513e-05   9.93347e-01   0.00000e+00  -3.16412e-11
-  23  T_n_S_15    -6.20356e-06   9.93347e-01  -0.00000e+00   1.89847e-11
-  24  T_n_S_16    -2.86981e-05   9.93347e-01  -0.00000e+00   8.85953e-11
-  25  T_n_S_2      2.81880e-06   9.93347e-01   0.00000e+00  -1.26565e-11
-  26  T_n_S_3      4.62392e-05   9.93347e-01   0.00000e+00  -3.16412e-11
-  27  T_n_S_4     -2.44311e-05   9.93347e-01  -0.00000e+00   7.59388e-11
-  28  T_n_S_5     -3.39659e-06   9.93347e-01  -0.00000e+00   1.26565e-11
-  29  T_n_S_6      2.93500e-05   9.93347e-01   0.00000e+00  -8.85953e-11
-  30  T_n_S_7     -9.08909e-06   9.93347e-01  -0.00000e+00   2.53129e-11
+   1  T_Bkg_norm_factor   1.31689e-01   5.57131e-01   4.94621e-04   2.27494e-06
+   2  T_n_Co_1    -2.79661e-01   9.22536e-01   8.65266e-04  -2.50256e-07
+   3  T_n_Co_2     1.75394e-02   9.46264e-01   8.90404e-04   2.78901e-07
+   4  T_n_Co_3     5.02229e-01   9.31616e-01   8.78422e-04   1.41970e-06
+   5  T_n_Co_4     2.25749e-01   9.18973e-01   8.60143e-04   8.80906e-07
+   6  T_n_Co_5     4.67279e-02   9.21848e-01   8.62871e-04   4.71124e-07
+   7  T_n_Co_6    -3.23090e-01   9.14322e-01   8.55965e-04  -2.97697e-07
+   8  T_n_Co_7    -1.37421e-01   9.21826e-01   8.63281e-04   6.92410e-08
+   9  T_n_Co_8     2.53564e-01   9.17557e-01   8.58638e-04   9.49997e-07
+  10  T_n_Co_9    -2.31176e-01   9.35817e-01   8.79992e-04  -2.13266e-07
+  11  T_n_S_1      5.32907e-15   9.93347e-01   9.37555e-04   0.00000e+00
+  12  T_n_S_2      1.77636e-15   9.93347e-01   9.37555e-04   0.00000e+00
+  13  T_n_S_3      2.58460e-13   9.93347e-01   9.37555e-04   0.00000e+00
+  14  T_n_S_4     -8.16236e-13   9.93347e-01   9.37555e-04   0.00000e+00
+  15  T_n_S_5     -2.62901e-13   9.93347e-01   9.37555e-04   0.00000e+00
+  16  T_n_S_6      6.11955e-13   9.93347e-01   9.37555e-04   0.00000e+00
+  17  T_n_S_7     -6.73239e-13   9.93347e-01   9.37555e-04   0.00000e+00
+  18  T_n_S_8      5.82645e-13   9.93347e-01   9.37555e-04   0.00000e+00
+  19  T_n_S_9      7.81597e-13   9.93347e-01   9.37555e-04   0.00000e+00
                                ERR DEF= 0.5
-AsymptoticCalculator::EvaluateNLL -  value = 65.5974 for poi fixed at = 0	fit time : Real time 0:00:00, CP time 0.030
+AsymptoticCalculator::EvaluateNLL -  value = 45.5854 for poi fixed at = 0	fit time : Real time 0:00:00, CP time 0.020
 [#1] INFO:InputArguments -- HypoTestInverter ---- Input models: 
 		 using as S+B (null) model     : S+B Model
 		 using as B (alternate) model  : B Model
@@ -409,32 +312,23 @@ AsymptoticCalculator::EvaluateNLL -  value = 65.5974 for poi fixed at = 0	fit ti
 Doing a fixed scan  in interval : 0 , 5
 [#1] INFO:Eval -- HypoTestInverter::GetInterval - run a fixed scan
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
+[#0] WARNING:Minization -- AsymptoticCalculator:  Found a negative value of the qmu - retry to do the unconditional fit 
+[#0] WARNING:Minization -- AsymptoticCalculator:  Found a better unconditional minimum  old NLL = 47.7437 old muHat 6.04725e-11
+[#0] WARNING:Minization -- AsymptoticCalculator:  New minimum  found for                           NLL = 47.7437    muHat  2.22045e-15
 [#1] INFO:InputArguments -- Minimum of POI is 0 corresponds to alt  snapshot   - using qtilde asymptotic formulae  
-[#1] INFO:Eval -- Using one-sided qmu - setting qmu to zero  muHat = 0.619592 muTest = 0
+[#1] INFO:Eval -- Using one-sided qmu - setting qmu to zero  muHat = 2.22045e-15 muTest = 0
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
-[#1] INFO:Eval -- Using one-sided qmu - setting qmu to zero  muHat = 0.619592 muTest = 0.0505051
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
-[#1] INFO:Eval -- Using one-sided qmu - setting qmu to zero  muHat = 0.619592 muTest = 0.10101
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
-[#1] INFO:Eval -- Using one-sided qmu - setting qmu to zero  muHat = 0.619592 muTest = 0.151515
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
-[#1] INFO:Eval -- Using one-sided qmu - setting qmu to zero  muHat = 0.619592 muTest = 0.20202
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
-[#1] INFO:Eval -- Using one-sided qmu - setting qmu to zero  muHat = 0.619592 muTest = 0.252525
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
-[#1] INFO:Eval -- Using one-sided qmu - setting qmu to zero  muHat = 0.619592 muTest = 0.30303
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
-[#1] INFO:Eval -- Using one-sided qmu - setting qmu to zero  muHat = 0.619592 muTest = 0.353535
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
-[#1] INFO:Eval -- Using one-sided qmu - setting qmu to zero  muHat = 0.619592 muTest = 0.40404
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
-[#1] INFO:Eval -- Using one-sided qmu - setting qmu to zero  muHat = 0.619592 muTest = 0.454545
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
-[#1] INFO:Eval -- Using one-sided qmu - setting qmu to zero  muHat = 0.619592 muTest = 0.505051
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
-[#1] INFO:Eval -- Using one-sided qmu - setting qmu to zero  muHat = 0.619592 muTest = 0.555556
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
-[#1] INFO:Eval -- Using one-sided qmu - setting qmu to zero  muHat = 0.619592 muTest = 0.606061
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
@@ -522,11 +416,11 @@ Doing a fixed scan  in interval : 0 , 5
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
 [#1] INFO:ObjectHandling -- RooWorkspace::saveSnaphot(w) replacing previous snapshot with name S+B Model__snapshot
-The Expected upper limit is: 1.1521
-The Expected upper +1sigma1.68874
-The Expected upper -1sigma0.797295
-Expected median limit for mass 50GeV  = 1.56956e-37 cm^2 
-	 +1sigma = 2.30064e-37
-	 -1sigma = 1.08619e-37
-Observed median limit for mass 50GeV  = 2.18908e-37 cm^2 
+The Expected upper limit is: 0.923079
+The Expected upper +1sigma1.34943
+The Expected upper -1sigma0.640531
+Expected median limit for mass 50GeV  = 1.25829e-37 cm^2 
+	 +1sigma = 1.83947e-37
+	 -1sigma = 8.73136e-38
+Observed median limit for mass 50GeV  = 9.80747e-38 cm^2 
 END  loop ---------------- 

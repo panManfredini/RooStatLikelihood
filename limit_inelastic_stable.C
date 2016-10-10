@@ -91,15 +91,20 @@ N_tot_theory(Mass,Xsec): for 225 livedays, 45kg and considering Xsec. It is a co
   double Bkg_norm_factor        = 0.034;
   double err_Bkg_norm_factor    = 0.002;
 
-  double err_Acceptance_SR 	= 0.05;         // 5% acc uncertainty
+  double err_Acceptance_SR 	= 0.07;         // 7% acc uncertainty  -- including SYS variatons
   double N_tot_theory 		= 50.;  	// Total Expected Signal Events, usefull to have always the histo scale to this number. 
 
 //---- retrieving global variables ----//
   TFile *histos  = TFile::Open("DATA/merged_signal_bkg.root");
 
-  TH1D  *h_signal_SR = (TH1D*)histos->Get("PL_SR_s1s2_mass_"+massPoint);
-  TH1F  *h_co60_SR   = (TH1F*)histos->Get("co60_PL_SR");
-  TH1F  *h_DM_SR     = (TH1F*)histos->Get("dm_PL_SR");
+  TH1D  *h_signal_SR = (TH1D*)histos->Get("PL_SR_s1s2_mass_"+massPoint+"_sys");
+  TH1F  *h_co60_SR   = (TH1F*)histos->Get("co60_PL_SR_reb");
+  TH1F  *h_DM_SR     = (TH1F*)histos->Get("dm_PL_SR_reb");
+/*
+  h_signal_SR->Rebin();
+  h_co60_SR->Rebin();
+  h_DM_SR->Rebin();
+*/
 
   //Scale the signal histo.
   double Signal_yeld_10m40_cm2 = h_signal_SR->Integral();  // N signal events per Day/Kg
@@ -118,18 +123,19 @@ RooWorkspace w("w");
 RooRealVar mu("mu","POI",1.,0.,5.);
 
 //-- constants
+/* //not in use anymore
 RooRealVar o_Acc("o_Acc","acceptance",0.);                              
 o_Acc.setConstant(true);
 
 RooRealVar M_Acc("M_Acc","acceptance", 1.);            
 M_Acc.setConstant(true);
 
-RooRealVar E_Acc("E_Acc","acceptance", err_Acceptance_SR);
-E_Acc.setConstant(true);
+//RooRealVar E_Acc("E_Acc","acceptance", err_Acceptance_SR);
+E_Acc.setConstant(true);                  //not in use anymore
 
-RooRealVar E_Acc_T("E_Acc_T","acceptance",1.);
-E_Acc_T.setConstant(true);
-
+//RooRealVar E_Acc_T("E_Acc_T","acceptance",1.);
+E_Acc_T.setConstant(true);    not in use anymore
+*/
 
 
 RooRealVar M_Bkg_norm_factor("M_Bkg_norm_factor","mean value",Bkg_norm_factor);
@@ -149,36 +155,40 @@ o_err_norm.setConstant(true);
 
 
 //-- Nuissance Par.
-RooRealVar T_Acc("T_Acc","Signal acceptance T value",0.,-5.,5.);
+//RooRealVar T_Acc("T_Acc","Signal acceptance T value",0.,-5.,5.); //not in use anymore
 RooRealVar T_Bkg_norm_factor("T_Bkg_norm_factor","Tvalue for Bkg_norm_factor",0.,-5.,5.);  // Tvalue, centered at 0 between -5sigma and +5 sigma  
 
 //-- functions for Tvalued nuissance
-RooFormulaVar f_Bkg_norm_factor("f_Bkg_norm_factor","T_Bkg_norm_factor*E_Bkg_norm_factor + M_Bkg_norm_factor",RooArgSet(T_Bkg_norm_factor,E_Bkg_norm_factor,M_Bkg_norm_factor));
-RooFormulaVar f_Acc("f_Acc","T_Acc*E_Acc + M_Acc",RooArgSet(T_Acc,E_Acc,M_Acc));
+RooFormulaVar f_Bkg_norm_factor("f_Bkg_norm_factor","Bkg norm Factor", "T_Bkg_norm_factor*E_Bkg_norm_factor + M_Bkg_norm_factor",RooArgSet(T_Bkg_norm_factor,E_Bkg_norm_factor,M_Bkg_norm_factor));
+//RooFormulaVar f_Acc("f_Acc","Acceptance ","T_Acc*E_Acc + M_Acc",RooArgSet(T_Acc,E_Acc,M_Acc)); //not in use anymore
 
 
 // PDFs
 RooGaussian c_bkg_norm("c_bkg_norm","constraint on bkg_norm", o_bkg_norm, T_Bkg_norm_factor, o_err_norm);
-RooGaussian c_Acc("c_Acc","constraint on Acc", o_Acc, T_Acc, E_Acc_T);
+//RooGaussian c_Acc("c_Acc","constraint on Acc", o_Acc, T_Acc, E_Acc_T);   // not in use anymore
 
 
 RooArgSet observables;
 RooArgSet g_obs;
 RooArgSet nuissanceP;
 RooArgSet product;
+//RooArgSet n_S_list;
 
+double    n_S_TOT = 0.;
+TString   f_n_S_TOT_str = "";
 
 for (int bin_itr = 1; bin_itr <= h_signal_SR->GetNbinsX() ; bin_itr++){
 
-  //if(bin_itr == 9 ) continue;
-  //if(bin_itr == 8 ) continue;
 
   //bin-auxiliary measure variables
    double S_bin       = h_signal_SR->GetBinContent(bin_itr);   // Observed events in bin_i for signal model scaled to Ntheory events
    double S_bin_err   = h_signal_SR->GetBinError(bin_itr);     // Error on bin_i correctly scaled
    double B_bin       = h_co60_SR->GetBinContent(bin_itr);     // Observed events in bin_i for Co60
+   double B_bin_err   = sqrt( pow(h_co60_SR->GetBinError(bin_itr),2.) + pow(B_bin * 0.04, 2.) ); // stat unc. summed in quadrature with 4% sys uncertainty per bin (coming from Co60 Th232 discrepancy)
    double nobs_bin    = h_DM_SR->GetBinContent(bin_itr);       // Observed events in bin_i for DM data
 
+
+   n_S_TOT +=  S_bin;   // integral of signal for sys shape constraint
 
    //cout<<"Efficiency   ---- " <<  S_bin / S_tot  << endl;
    TString bin_name(TString::Itoa(bin_itr, 10));
@@ -186,7 +196,10 @@ for (int bin_itr = 1; bin_itr <= h_signal_SR->GetNbinsX() ; bin_itr++){
    //-- stat uncertainty Co
    RooRealVar *M_n_Co = new RooRealVar ("M_n_Co_"+bin_name,"Mean value", B_bin);
    M_n_Co->setConstant(true);
-   RooRealVar *E_n_Co = new RooRealVar("E_n_Co_"+bin_name,"Error", sqrt(B_bin));
+
+  //if(bin_itr == 9 || bin_itr == 8) B_bin_err = B_bin_err * 2.;
+
+   RooRealVar *E_n_Co = new RooRealVar("E_n_Co_"+bin_name,"Error", B_bin_err );
    E_n_Co->setConstant(true);
    RooRealVar *E_n_Co_T = new RooRealVar("E_n_Co_T_"+bin_name,"Error", 1.);
    E_n_Co_T->setConstant(true);
@@ -217,7 +230,7 @@ for (int bin_itr = 1; bin_itr <= h_signal_SR->GetNbinsX() ; bin_itr++){
    //Building the N_s + N_b
    RooFormulaVar *f_n_Co = new RooFormulaVar("f_n_Co_"+bin_name,"Rescaling the T_value", "T_n_Co_"+bin_name+"*E_n_Co_"+bin_name+" + M_n_Co_"+bin_name, RooArgSet(*T_n_Co,*E_n_Co,*M_n_Co));
    RooFormulaVar *f_n_S = new RooFormulaVar("f_n_S_"+bin_name,"Rescaling the T_value", "T_n_S_"+bin_name+"*E_n_S_"+bin_name+" + M_n_S_"+bin_name, RooArgSet(*T_n_S,*E_n_S,*M_n_S));
-   RooFormulaVar *s_plus_b = new RooFormulaVar("s_plus_b_"+bin_name,"mu*f_Acc*f_n_S_"+bin_name +" + f_n_Co_"+bin_name+"*f_Bkg_norm_factor",RooArgSet(mu,*f_n_S,f_Acc,*f_n_Co,f_Bkg_norm_factor));
+   RooFormulaVar *s_plus_b = new RooFormulaVar("s_plus_b_"+bin_name,"S plus B", "mu*f_n_S_"+bin_name +" + f_n_Co_"+bin_name+"*f_Bkg_norm_factor",RooArgSet(mu,*f_n_S,*f_n_Co,f_Bkg_norm_factor));
 
    RooPoisson  *pdf = new RooPoisson("pdf_"+bin_name,"",*n_obs, *s_plus_b);
   
@@ -231,15 +244,36 @@ for (int bin_itr = 1; bin_itr <= h_signal_SR->GetNbinsX() ; bin_itr++){
    product.add(*c_n_Co);
    product.add(*c_n_S);
   
-
+/*   if(bin_itr < h_signal_SR->GetNbinsX()) f_n_S_TOT_str.Append("f_n_S_"+bin_name+"+");
+   else f_n_S_TOT_str.Append("f_n_S_"+bin_name);
+ 
+   n_S_list.add(*f_n_S);
+  */ 	
 }
 
+
+/*RooFormulaVar f_n_S_TOT("f_n_S_TOT","f_n_S_TOT","("+f_n_S_TOT_str+"-50.)/50.",n_S_list); 
+
+RooRealVar M_n_S_TOT("M_n_S_TOT","mean value", 0.);
+//RooRealVar M_n_S_TOT("M_n_S_TOT","mean value",n_S_TOT);
+M_n_S_TOT.setConstant(true);
+
+RooRealVar E_n_S_TOT("E_n_S_TOT","error", err_Acceptance_SR );
+//RooRealVar E_n_S_TOT("E_n_S_TOT","error", n_S_TOT * err_Acceptance_SR );
+E_n_S_TOT.setConstant(true);
+
+RooGaussian   c_n_S_TOT("c_n_S_TOT","constraint on N signal",M_n_S_TOT, f_n_S_TOT, E_n_S_TOT); 
+
+g_obs.add(M_n_S_TOT);
+
+product.add(c_n_S_TOT);
+*/
 
 histos->Close();
    
    
 product.add(c_bkg_norm);
-product.add(c_Acc);
+//product.add(c_Acc);        // not in use anymore
 RooProdPdf model("model","model",product) ;
 
 
@@ -248,9 +282,10 @@ RooProdPdf model("model","model",product) ;
 
 
    g_obs.add(o_bkg_norm);
-   g_obs.add(o_Acc);
    nuissanceP.add(T_Bkg_norm_factor);
-   nuissanceP.add(T_Acc);
+//   g_obs.add(o_Acc);         
+//   nuissanceP.add(T_Acc);   // not in use anymore
+
 
 
 // Building the model

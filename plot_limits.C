@@ -82,8 +82,8 @@ Exp_limits_xmass->SetLineColor(2);
 
 Exp_limitsS2->SetTitle("");
 
-Exp_limitsS2->Draw("A3");
-Exp_limitsS1->Draw("same3");
+Exp_limitsS2->Draw("AE3");
+Exp_limitsS1->Draw("sameE3");
 Exp_limits_xmass->Draw("samePc");
 Exp_limits->Draw("samePc");
 obs_limits->SetMarkerStyle(20);
@@ -94,9 +94,9 @@ TLegend* lego = new TLegend(0.2,0.9,0.5,0.7);
   lego->SetTextSize(0.033);
   lego->SetFillColor(0);
   lego->SetBorderSize(0);
-  lego->AddEntry(obs_limits,"Observed 90\% CLs limit");
-  lego->AddEntry(Exp_limits, "Expected 90\% CLs limit");
-  lego->AddEntry(Exp_limits_xmass, "Expected 90\% XMASS");
+  lego->AddEntry(obs_limits,"XENON100 Observed 90\% CLs limit");
+  lego->AddEntry(Exp_limits, "XENON100 Expected 90\% CLs limit");
+  lego->AddEntry(Exp_limits_xmass, "XMASS 90\% CL limit");
   lego->AddEntry(Exp_limitsS1,"1 #sigma","f");
   lego->AddEntry(Exp_limitsS2,"2 #sigma","f");
   lego->Draw();
