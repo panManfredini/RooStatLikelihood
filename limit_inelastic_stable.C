@@ -319,6 +319,7 @@ w.Print();
 
 
 
+
 //////////////////////////  hypo test 
   // get the modelConfig (S+B) out of the file
   // and create the B model from the S+B model
@@ -421,4 +422,55 @@ f.Close();
 
 
 
+/*
+///----------------------  HERE START PULLS
+  RooAbsPdf *pdftmp = mc.GetPdf();					//get the pdf
+
+  ROOT::Math::MinimizerOptions::SetDefaultStrategy(2);			//		
+  RooFitResult *fitres = pdftmp->fitTo( data , Save() , Minos(true), PrintLevel(-1) ); //Do the fit on pseudo data
+
+    const RooArgSet *ParaGlobalFit = mc.GetNuisanceParameters();
+    RooRealVar* poi = (RooRealVar*) mc.GetParametersOfInterest()->first();
+    double muhat = poi->getVal();
+   
+    cout << "HERE muhat " << muhat << endl; 
+
+    // PLotting the nuisance paramaters pulls 
+    RooRealVar* var = NULL;
+    const int nPara = ParaGlobalFit->getSize();
+
+    TH1D *h1Dpull = new TH1D("h1Dpull","Pulls",nPara,0.5, nPara + 0.5);
+    TH1D *h1sigma = new TH1D("h1sigma","Pulls",nPara, 0.5 , nPara + 0.5);
+    h1Dpull->GetYaxis()->SetRangeUser(-4,4);
+    h1Dpull->GetYaxis()->SetTitle("(NP_{fit} - NP_{0}) / #DeltaNP");
+
+    double ib=0;
+    TIterator* it2 = mc.GetNuisanceParameters()->createIterator();
+    while( (var = (RooRealVar*) it2->Next()) ){
+      
+      // Not consider nuisance parameter being not associated to syst
+      TString varname = var->GetName();
+      
+      double pull  = var->getVal()  ; // GetValue() return value in unit of sigma
+      double errorHi = var->getErrorHi() ; 
+      double errorLo = var->getErrorLo() ; 
+      
+
+      ib++;
+      h1Dpull->GetXaxis()->SetBinLabel(ib,varname);
+      h1Dpull->SetBinContent(ib,pull);
+      h1Dpull->SetBinError(ib,errorHi);
+
+      h1sigma->SetBinContent(ib,0.);	
+      h1sigma->SetBinError(ib,1.);	
+  
+      } 
+    h1Dpull->GetXaxis()->LabelsOption("v"); //Ale
+    h1Dpull->Draw();
+    h1sigma->SetFillColor(3);
+    h1sigma->Draw("same E3");
+    h1Dpull->Draw("same");
+
+///----  HERE ENDS
+*/
 }

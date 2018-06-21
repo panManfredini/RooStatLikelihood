@@ -1403,7 +1403,7 @@ gre40->SetFillColor(0);
    gre10->Draw("L same");
    gre20->Draw("L same");
    gre40->Draw("L same");
-   gaud->Draw("L same");
+ //  gaud->Draw("L same");
    
    TLegend *leg = new TLegend(0.2,0.7,0.5,0.9,NULL,"brNDC");
   leg->SetTextSize(0.033);
@@ -1414,7 +1414,7 @@ gre40->SetFillColor(0);
 	leg->AddEntry(gre10,"10 bins");
 	leg->AddEntry(gre20,"20 bins");
 	leg->AddEntry(gre40,"40 bins");
-	leg->AddEntry(gaud,"Gaudenz");
+//	leg->AddEntry(gaud,"Gaudenz");
 
 leg->Draw();
 }

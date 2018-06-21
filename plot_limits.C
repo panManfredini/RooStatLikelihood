@@ -1,6 +1,17 @@
 {
 
-TFile f("limits/limit_all.root");
+
+gROOT->ProcessLine(".L ../XeMICRO/Inelastic/inelastic_style.C "); 
+setInelasticStyle();
+
+TCanvas canv("canv", "First canvas", 1000, 800);
+  gPad->SetLeftMargin(0.13);
+  gPad->SetTopMargin(0.05);
+  gPad->SetBottomMargin(0.12);
+  gPad->SetRightMargin(0.04);
+
+TFile f("limits/smooth_limit_all.root");
+//TFile f("limits/limit_all.root");
 
 TGraphErrors *obs_limits = (TGraphErrors*) f.Get("obs_limits"); 
 TGraphErrors *Exp_limits = (TGraphErrors*) f.Get("Exp_limits"); 
@@ -8,20 +19,26 @@ TGraphAsymmErrors *Exp_limitsS1 = (TGraphAsymmErrors*) f.Get("Exp_limitsS1");
 TGraphAsymmErrors *Exp_limitsS2 = (TGraphAsymmErrors*) f.Get("Exp_limitsS2");
 
 
-TCanvas *c1 = new TCanvas("limits", "limit", 600, 600);
 
-Exp_limitsS1->SetFillColor(3);
-Exp_limitsS1->SetLineColor(3);
-Exp_limitsS1->SetMarkerColor(3);
+Exp_limitsS1->SetFillColor(425);
+Exp_limitsS1->SetLineColor(425);
+Exp_limitsS1->SetMarkerColor(425);
+/*Exp_limitsS1->SetFillColor(851);
+Exp_limitsS1->SetLineColor(851);
+Exp_limitsS1->SetMarkerColor(851);*/
 Exp_limitsS1->SetMarkerSize(0);
 
-Exp_limitsS2->SetFillColor(5);
-Exp_limitsS2->SetLineColor(5);
-Exp_limitsS2->SetMarkerColor(5);
+Exp_limitsS2->SetFillColor(861);
+Exp_limitsS2->SetLineColor(861);
+Exp_limitsS2->SetMarkerColor(861);
+/*Exp_limitsS2->SetFillColor(852);
+Exp_limitsS2->SetLineColor(852);
+Exp_limitsS2->SetMarkerColor(852);*/
 Exp_limitsS2->SetMarkerSize(0);
 
 obs_limits->SetFillColor(0);
-obs_limits->SetLineWidth(3);
+obs_limits->SetLineColor(601);
+obs_limits->SetLineWidth(5);
 obs_limits->SetMarkerSize(0);
 
 Exp_limits->SetFillColor(0);
@@ -29,74 +46,66 @@ Exp_limits->SetMarkerSize(0);
 Exp_limits->SetLineStyle(7);
 Exp_limits->SetLineWidth(3);
 
-Exp_limitsS2->GetYaxis()->SetTitle("#sigma");
+Exp_limitsS2->GetYaxis()->SetTitle("SD Inelastic WIMP cross section  [cm^{2}]");
+Exp_limitsS2->GetYaxis()->SetTitleOffset(1.4);
 
-Exp_limitsS2->GetXaxis()->SetTitle("M  [GeV]");
+Exp_limitsS2->GetXaxis()->SetTitle("M_{#chi}  [GeV]");
 
 
 Exp_limitsS2->GetXaxis()->SetLimits(9.,5000.);
 Exp_limitsS2->GetYaxis()->SetRangeUser(1E-38,5E-36);
 
-Exp_limits->GetXaxis()->SetLimits(9.,5000.);
-Exp_limits->GetYaxis()->SetRangeUser(1E-38,5E-36);
+//Exp_limits->GetXaxis()->SetLimits(9.,5000.);
+//Exp_limits->GetYaxis()->SetRangeUser(1E-38,5E-36);
 
-TGraphErrors *Exp_limits_xmass = new TGraphErrors(16);
-   Exp_limits_xmass->SetPoint(0,20,8e-36);
-   Exp_limits_xmass->SetPointError(0,0,0);
-   Exp_limits_xmass->SetPoint(1,29.8071,7.162923e-37);
-   Exp_limits_xmass->SetPointError(1,0,0);
-   Exp_limits_xmass->SetPoint(2,39.90202,2.027528e-37);
-   Exp_limits_xmass->SetPointError(2,0,0);
-   Exp_limits_xmass->SetPoint(3,53.41583,9.91722e-38);
-   Exp_limits_xmass->SetPointError(3,0,0);
-   Exp_limits_xmass->SetPoint(4,62.16429,7.461589e-38);
-   Exp_limits_xmass->SetPointError(4,0,0);
-   Exp_limits_xmass->SetPoint(5,69.85718,6.3506e-38);
-   Exp_limits_xmass->SetPointError(5,0,0);
-   Exp_limits_xmass->SetPoint(6,83.21777,5.354015e-38);
-   Exp_limits_xmass->SetPointError(6,0,0);
-   Exp_limits_xmass->SetPoint(7,90,5e-38);
-   Exp_limits_xmass->SetPointError(7,0,0);
-   Exp_limits_xmass->SetPoint(8,105.0887,4.600252e-38);
-   Exp_limits_xmass->SetPointError(8,0,0);
-   Exp_limits_xmass->SetPoint(9,200,5e-38);
-   Exp_limits_xmass->SetPointError(9,0,0);
-   Exp_limits_xmass->SetPoint(10,300,6e-38);
-   Exp_limits_xmass->SetPointError(10,0,0);
-   Exp_limits_xmass->SetPoint(11,388.2045,7.252295e-38);
-   Exp_limits_xmass->SetPointError(11,0,0);
-   Exp_limits_xmass->SetPoint(12,590.8438,9.823615e-38);
-   Exp_limits_xmass->SetPointError(12,0,0);
-   Exp_limits_xmass->SetPoint(13,746.1269,1.210266e-37);
-   Exp_limits_xmass->SetPointError(13,0,0);
-   Exp_limits_xmass->SetPoint(14,1000,1.5e-37);
-   Exp_limits_xmass->SetPointError(14,0,0);
-   Exp_limits_xmass->SetPoint(15,4244.204,4.354065e-37);
-   Exp_limits_xmass->SetPointError(15,0,0);
+
+double x[16];
+double y[16];
+x[0]=20; y[0]=8.11629e-36;
+x[1]=23; y[1]=2.95962e-36;
+x[2]=30; y[2]=6.79689e-37;
+x[3]=40; y[3]=2.12121e-37;
+x[4]=50; y[4]=1.11727e-37;
+x[5]=70; y[5]=6.08576e-38;
+x[6]=100; y[6]=4.57758e-38;
+x[7]=130; y[7]=4.36316e-38;
+x[8]=160; y[8]=4.48429e-38;
+x[9]=200; y[9]=4.76474e-38;
+x[10]=300; y[10]=6.07221e-38;
+x[11]=600; y[11]=1.02375e-37;
+x[12]=1000; y[12]=1.60589e-37;
+x[13]=2000; y[13]=3.05561e-37;
+x[14]=3000; y[14]=4.57505e-37;
+x[15]=5000; y[15]=7.46806e-37;
+
+TGraph *Exp_limits_xmass = new TGraph(16, x,y);
 
 Exp_limits_xmass->SetFillColor(0);
 Exp_limits_xmass->SetMarkerSize(0);
-Exp_limits_xmass->SetLineWidth(3);
-Exp_limits_xmass->SetLineColor(2);
+Exp_limits_xmass->SetMarkerColor(603);
+Exp_limits_xmass->SetLineWidth(5);
+Exp_limits_xmass->SetLineColor(603);
+Exp_limits_xmass->SetLineStyle(9);
 
 
 Exp_limitsS2->SetTitle("");
 
-Exp_limitsS2->Draw("AE3");
-Exp_limitsS1->Draw("sameE3");
+//Exp_limits->Draw("APc");
+Exp_limitsS2->Draw("A4");
+Exp_limitsS1->Draw("same4");
 Exp_limits_xmass->Draw("samePc");
-Exp_limits->Draw("samePc");
 obs_limits->SetMarkerStyle(20);
 obs_limits->Draw("samePc");
 
 
-TLegend* lego = new TLegend(0.2,0.9,0.5,0.7);
-  lego->SetTextSize(0.033);
+TLegend* lego = new TLegend(0.35,0.90,0.6,0.7);
+  lego->SetTextFont(132);
+  lego->SetTextSize(0.05);
   lego->SetFillColor(0);
   lego->SetBorderSize(0);
-  lego->AddEntry(obs_limits,"XENON100 Observed 90\% CLs limit");
-  lego->AddEntry(Exp_limits, "XENON100 Expected 90\% CLs limit");
-  lego->AddEntry(Exp_limits_xmass, "XMASS 90\% CL limit");
+  lego->AddEntry(Exp_limits_xmass, "XMASS   90\% CL limit");
+  lego->AddEntry(obs_limits,"XENON100   90\% CLs limit");
+//  lego->AddEntry(Exp_limits, "XENON100 Expected 90\% CLs limit");
   lego->AddEntry(Exp_limitsS1,"1 #sigma","f");
   lego->AddEntry(Exp_limitsS2,"2 #sigma","f");
   lego->Draw();
@@ -105,6 +114,12 @@ TLegend* lego = new TLegend(0.2,0.9,0.5,0.7);
 gPad->SetLogy();
 gPad->SetLogx();
 gPad->RedrawAxis("g");
+
+  canv.Print("/home/pan/work/XeMICRO/Inelastic/SignalSamples/limit_reb.png");
+  canv.Print("/home/pan/work/XeMICRO/Inelastic/SignalSamples/limit_reb.eps");
+  canv.Print("/home/pan/Documents/Papers/mypapers/Inelastic/limit_reb.png");
+  canv.Print("/home/pan/Documents/Papers/mypapers/Inelastic/limit_reb.eps");
+
 
 }
 
